@@ -6,9 +6,17 @@ import ForgetPassword from './Components/Accounts/ForgotPassword';
 import ResetPassword from './Components/Accounts/ResetPassword';
 import DoctorDashboard from './pages/doctor/DoctorDashboard';
 import HomePage from './pages/User/Home';
-import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminHome from './pages/admin/AdminHome';
+import AdminDashbord from './Components/Admin/Dashboard';
+import UsersList from './Components/Admin/userList';
+import DoctorsList from './Components/Admin/doctorsList';
+import axios from 'axios';
+import { BASE_URL } from './Utils/config';
+
+
 
 function App() {
+  axios.defaults.baseURL = BASE_URL;
   return (
     <div className="App">
       <Router>
@@ -19,7 +27,13 @@ function App() {
           <Route path='forgotPassword' element ={<ForgetPassword/>}/>
           <Route path='ResetPassword' element ={<ResetPassword/>}/>
           <Route path='DoctorHome' element ={<DoctorDashboard/>}/>
-          <Route path='AdminDashboard' element ={<AdminDashboard/>}/>
+        
+        {/* admin interface */}
+          <Route path='AdminDashboard' element ={<AdminHome/>} children={[
+               <Route path='' element ={<AdminDashbord/>}/>,
+               <Route path='usersList' element ={<UsersList/>}/>,
+               <Route path='doctorsList' element ={<DoctorsList/>}/>]}/>
+               
         </Routes>
       </Router>
     </div>

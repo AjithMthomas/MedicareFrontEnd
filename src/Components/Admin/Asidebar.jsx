@@ -20,6 +20,9 @@ import {
   PowerIcon,
 } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { Avatar } from "@material-tailwind/react"; 
+import admin from "../../images/admin.jpg"
+import { Link } from "react-router-dom";
  
 export default function AdiminSidebar() {
   const [open, setOpen] = React.useState(0);
@@ -30,7 +33,8 @@ export default function AdiminSidebar() {
  
   return (
     <Card className="fixed top-4 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
-      <div className="mb-2 p-4">
+      <div className="mb-2 p-4 ">
+      <Avatar src={admin} alt="avatar" size="sm" className="h-[5rem] w-[5rem] ms-20 rounded-full" />
         <Typography variant="h5" color="blue-gray">
         Admin Dashboard
         </Typography>
@@ -51,33 +55,28 @@ export default function AdiminSidebar() {
                 <PresentationChartBarIcon className="h-5 w-5" />
               </ListItemPrefix>
               <Typography color="blue-gray" className="mr-auto font-normal">
-                Admin Dashboard
+                Doctors
               </Typography>
             </AccordionHeader>
           </ListItem>
           <AccordionBody className="py-1">
             <List className="p-0">
+              <Link to='doctorsList'><ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+               Doctors list
+              </ListItem></Link>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                Analytics
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                Reporting
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                Projects
+                Doctor Requests
               </ListItem>
             </List>
           </AccordionBody>
         </Accordion>
+        
         <Accordion
           open={open === 2}
           icon={
@@ -98,37 +97,30 @@ export default function AdiminSidebar() {
             </AccordionHeader>
           </ListItem>
           <AccordionBody className="py-1">
+           
             <List className="p-0">
+            <Link to="usersList"><ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+              Users List
+              </ListItem></Link>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                Doctors
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                Call Request
+               Users Call Request
               </ListItem>
             </List>
           </AccordionBody>
         </Accordion>
+        
         <hr className="my-2 border-blue-gray-50" />
-        <ListItem>
-          <ListItemPrefix>
-            <InboxIcon className="h-5 w-5" />
-          </ListItemPrefix>
-         Messages
-          <ListItemSuffix>
-            <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
-          </ListItemSuffix>
-        </ListItem>
         <ListItem>
           <ListItemPrefix>
             <UserCircleIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Doctors request
+         Appointmets
         </ListItem>
         <ListItem>
           <ListItemPrefix>

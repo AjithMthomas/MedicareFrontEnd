@@ -7,11 +7,19 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { toast,Toaster } from 'react-hot-toast';
-
+import { Toaster } from 'react-hot-toast';
+import { getLocal } from '../Contexts/auth'
+import jwt_decode from 'jwt-decode';
  
 export default function NavbarComponent() {
   const [openNav, setOpenNav] = useState(false);
+
+
+  const localResponse = getLocal('authToken');
+
+
+
+
  
   useEffect(() => {
     window.addEventListener("resize", () => window.innerWidth >= 960 && setOpenNav(false));
@@ -75,7 +83,8 @@ export default function NavbarComponent() {
         </Typography>
         <div className="hidden lg:block">{navList}</div>
         <Link to="/login"><Button variant="gradient" size="sm" className="hidden lg:inline-block  hover:bg-blue-500">
-          <span className=" text-black ">Login</span>
+          {localResponse?(<span className=" text-black ">Dashboard</span>):
+          (<span className=" text-black ">Login</span>)}
         </Button></Link>
         <IconButton
           variant="text"
