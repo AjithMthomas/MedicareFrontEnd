@@ -116,24 +116,18 @@ export default function AdiminSidebar() {
         </Accordion>
         
         <hr className="my-2 border-blue-gray-50" />
-        <ListItem>
+        <Link to='appointments'><ListItem>
           <ListItemPrefix>
             <UserCircleIcon className="h-5 w-5" />
           </ListItemPrefix>
          Appointmets
-        </ListItem>
-        <ListItem>
+        </ListItem></Link>
+        <Link to='department'><ListItem>
           <ListItemPrefix>
             <Cog6ToothIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Appointments
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <Cog6ToothIcon className="h-5 w-5" />
-          </ListItemPrefix>
-         Category
-        </ListItem>
+         Department
+        </ListItem></Link>
         <ListItem>
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />

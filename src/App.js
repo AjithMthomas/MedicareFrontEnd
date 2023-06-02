@@ -12,6 +12,9 @@ import UsersList from './Components/Admin/userList';
 import DoctorsList from './Components/Admin/doctorsList';
 import axios from 'axios';
 import { BASE_URL } from './Utils/config';
+import Appointments from './Components/Admin/Appointment';
+import Department from './Components/Admin/Department';
+import AddDepartmentForm from './Components/Admin/AddDepartment';
 
 
 
@@ -29,10 +32,14 @@ function App() {
           <Route path='DoctorHome' element ={<DoctorDashboard/>}/>
         
         {/* admin interface */}
-          <Route path='AdminDashboard' element ={<AdminHome/>} children={[
+          <Route path='AdminDashboard/' element ={<AdminHome/>} children={[
                <Route path='' element ={<AdminDashbord/>}/>,
-               <Route path='usersList' element ={<UsersList/>}/>,
-               <Route path='doctorsList' element ={<DoctorsList/>}/>]}/>
+               <Route path='usersList/' element ={<UsersList/>}/>,
+               <Route path='doctorsList/' element ={<DoctorsList/>}/>,
+               <Route path='appointments/' element ={<Appointments/>}/>,
+               <Route path='department/' element ={<Department/>}/>,
+               <Route path='addDepartment/' element ={<AddDepartmentForm/>}/>,
+               ]}/>
                
         </Routes>
       </Router>

@@ -2,6 +2,7 @@ import React from "react";
 import AdminSidebar from "../../Components/Admin/Asidebar";
 import { Outlet } from "react-router-dom";
 
+
 export default function AdminHome(){
     return(
         <div className="flex">

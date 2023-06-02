@@ -22,7 +22,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Avatar } from "@material-tailwind/react";
-import profile from "../../images/doctor-icon-avatar-white_136162-58.avif"
+import profile from "../../images/doctorAvatar.jpg"
 
  
 export default function Sidebar() {
@@ -33,7 +33,7 @@ export default function Sidebar() {
   };
  
   return (
-    <Card className="fixed top-4 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+    <Card className="fixed top-4 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 rounded-xl" >
       <div className="mb-2 p-4  ">
       <Avatar src={profile} alt="avatar" size="sm" className="h-[8rem] w-[8rem] ms-16" />
         <Typography variant="h5" color="blue-gray">

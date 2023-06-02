@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast, Toaster } from 'react-hot-toast';
+import userAvatar from "../../images/userAvatar.png"
 
 function UsersList() {
   const [users, setUsers] = useState([]);
@@ -67,11 +68,21 @@ function UsersList() {
                   <tr className="hover:bg-gray-50" key={index}>
                     <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
                       <div className="relative h-10 w-10">
+                        {user.image?
                         <img
                           className="h-full w-full rounded-full object-cover object-center"
-                          src="/avatar1.avif"
-                          alt=""
+                          src={user.image}
+                          alt="avatar"
+                        
                         />
+                        :
+                        <img
+                          className="h-full w-full rounded-full object-cover object-center"
+                          src={userAvatar}
+                          alt="avatar"
+                         
+                        />
+                      }
                         {user.is_active?
                          <span className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 "></span>:
                          <span className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-red-700 "></span>
