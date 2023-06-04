@@ -23,6 +23,7 @@ import {
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Avatar } from "@material-tailwind/react";
 import profile from "../../images/doctorAvatar.jpg"
+import { Link } from "react-router-dom";
 
  
 export default function Sidebar() {
@@ -69,12 +70,12 @@ export default function Sidebar() {
                 </ListItemPrefix>
                 View Appointments 
               </ListItem>
-              <ListItem>
+            <Link to='shedule/'><ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
               Shedule Appointments
-              </ListItem>
+              </ListItem></Link>
             </List>
           </AccordionBody>
         </Accordion>

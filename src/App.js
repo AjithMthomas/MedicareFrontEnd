@@ -15,7 +15,12 @@ import { BASE_URL } from './Utils/config';
 import Appointments from './Components/Admin/Appointment';
 import Department from './Components/Admin/Department';
 import AddDepartmentForm from './Components/Admin/AddDepartment';
-
+import DoctorListHome from "./pages/User/DoctorListHome"
+import DoctorApproval from "./pages/User/DoctorApproval"
+import DocorsRequest from "./Components/Admin/DocorsRequest"
+import AcceptDoctor from "./Components/Admin/AcceptDoctor"
+import Dashboard from "./Components/Doctor/Dashbord"
+import ScheduleAppointment from "./Components/Doctor/SheduleAppointments"
 
 
 function App() {
@@ -24,12 +29,24 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
+          {/* userSide */}
           <Route path='login' element ={<Login/>}/>
           <Route path='Register' element ={<SignUp/>}/>
           <Route path='/' element ={<HomePage/>}/>
-          <Route path='forgotPassword' element ={<ForgetPassword/>}/>
-          <Route path='ResetPassword' element ={<ResetPassword/>}/>
-          <Route path='DoctorHome' element ={<DoctorDashboard/>}/>
+          <Route path='forgotPassword/' element ={<ForgetPassword/>}/>
+          <Route path='ResetPassword/' element ={<ResetPassword/>}/>
+          <Route path='doctorsListhome/' element ={<DoctorListHome/>}/>
+          <Route path='doctorApproval/' element ={<DoctorApproval/>}/>
+
+
+
+       {/* doctorside */}
+          <Route path='DoctorHome' element ={<DoctorDashboard/>} children={[
+            <Route path='' element ={<Dashboard/>}/>,
+             <Route path='shedule/' element ={<ScheduleAppointment/>}/>,
+          ]}/>
+
+
         
         {/* admin interface */}
           <Route path='AdminDashboard/' element ={<AdminHome/>} children={[
@@ -39,6 +56,9 @@ function App() {
                <Route path='appointments/' element ={<Appointments/>}/>,
                <Route path='department/' element ={<Department/>}/>,
                <Route path='addDepartment/' element ={<AddDepartmentForm/>}/>,
+               <Route path='doctorsRequest/' element ={<DocorsRequest/>}/>,
+               <Route path='AcceptDoctor/' element ={<AcceptDoctor/>}/>,
+
                ]}/>
                
         </Routes>

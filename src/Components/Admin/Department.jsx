@@ -61,10 +61,10 @@ function Department() {
                             </div>
                             </th>
                             <td class="px-6 py-4">
-                                <p>hsfgswihf</p>
+                                <p>count</p>
                             </td>
                             <td class="px-6 py-4">
-                                <p>shss</p>
+                                <p>count</p>
                             </td>
                             <td class="px-6 py-4">
                           <AiFillEdit/>

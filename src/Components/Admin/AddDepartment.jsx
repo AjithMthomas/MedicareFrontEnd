@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Card, Input, Typography } from "@material-tailwind/react";
+import { toast, Toaster } from 'react-hot-toast';
 
 export default function AddDepartmentForm() {
   const [name, setName] = useState("");
@@ -21,6 +22,7 @@ export default function AddDepartmentForm() {
           "Content-Type": "multipart/form-data",
         },
       });
+      toast.success('Department added succefully')
       console.log(response.data); // Handle the response as needed
 
       // Reset form fields
@@ -39,8 +41,9 @@ export default function AddDepartmentForm() {
 
   return (
     <Card color="transparent" shadow={false} className="ml-3 mt-3">
+        <Toaster position="top-center" reverseOrder={false} limit={1}></Toaster>
       <Typography variant="h4" color="blue-gray" className="font-serif mt-3 text-start underline">
-        Edit Department
+        Add Department
       </Typography>
 
       <form

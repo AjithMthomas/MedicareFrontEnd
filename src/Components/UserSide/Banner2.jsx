@@ -20,7 +20,7 @@ function BannerSecond() {
             </h1>
             <h2 className="mt-4 font-serif  text-3xl"> Are you a Doctor interested in</h2>
             <h2 className="mt-1 font-serif text-start text-3xl">reaching new patients?</h2>
-              <Link to="/doctors">
+              <Link to="/doctorApproval">
                 <span className="cursor-pointer  flex justify-center items-center mt-10 font-semibold text-md w-48 bg-[#194569] p-2  text-white hover:text-black rounded">
                   Become a doctor
                 </span>

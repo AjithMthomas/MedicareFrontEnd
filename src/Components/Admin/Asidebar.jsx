@@ -67,12 +67,12 @@ export default function AdiminSidebar() {
                 </ListItemPrefix>
                Doctors list
               </ListItem></Link>
-              <ListItem>
+             <Link to='doctorsRequest/'> <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
                 Doctor Requests
-              </ListItem>
+              </ListItem></Link>
             </List>
           </AccordionBody>
         </Accordion>

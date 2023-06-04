@@ -33,9 +33,9 @@ export default function NavbarComponent() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center  hover:text-blue-500 ">
+       <Link to='doctorsListhome/'> <a href="#" className="flex items-center  hover:text-blue-500 ">
           Doctors
-        </a>
+        </a></Link>
       </Typography>
       <Typography
         as="li"
