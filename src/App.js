@@ -20,7 +20,8 @@ import DoctorApproval from "./pages/User/DoctorApproval"
 import DocorsRequest from "./Components/Admin/DocorsRequest"
 import AcceptDoctor from "./Components/Admin/AcceptDoctor"
 import Dashboard from "./Components/Doctor/Dashbord"
-import ScheduleAppointment from "./Components/Doctor/SheduleAppointments"
+import CreateSlotForm from "./Components/Doctor/CreateSlotForm"
+import Appointment from "./Components/Doctor/Appointments"
 
 
 function App() {
@@ -43,7 +44,8 @@ function App() {
        {/* doctorside */}
           <Route path='DoctorHome' element ={<DoctorDashboard/>} children={[
             <Route path='' element ={<Dashboard/>}/>,
-             <Route path='shedule/' element ={<ScheduleAppointment/>}/>,
+             <Route path='shedule/' element ={<CreateSlotForm/>}/>,
+             <Route path='appointment/' element ={<Appointment/>}/>,
           ]}/>
 
 
