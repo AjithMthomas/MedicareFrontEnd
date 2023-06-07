@@ -13,7 +13,7 @@ function BannerFirst() {
               LET'S FIND YOUR DOCTOR
             </h1>
           
-              <Link to="/doctors">
+              <Link to="/doctorsListhome/">
                 <span className="cursor-pointer  flex justify-center items-center mt-10 font-semibold text-md w-48 bg-[#194569] p-2  text-white hover:text-black rounded">
                   Appointment 
                 </span>

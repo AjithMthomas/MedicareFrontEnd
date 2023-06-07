@@ -72,7 +72,7 @@ function DocorsRequest() {
                             </td>
 
                             <td class="px-6 py-4">
-                         <Link to='/AdminDashboard/AcceptDoctor/'><div className="flex">
+                         <Link to={`/AdminDashboard/AcceptDoctor/${doctor.id}`}><div className="flex">
                                 <label class="inline-flex relative items-center mr-5 cursor-pointer">
                                     <input
                                         type="checkbox"

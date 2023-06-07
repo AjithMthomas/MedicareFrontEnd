@@ -22,6 +22,8 @@ import AcceptDoctor from "./Components/Admin/AcceptDoctor"
 import Dashboard from "./Components/Doctor/Dashbord"
 import CreateSlotForm from "./Components/Doctor/CreateSlotForm"
 import Appointment from "./Components/Doctor/Appointments"
+import DoctorProfikeInHome from "./pages/User/DoctorProfileInHome"
+
 
 
 function App() {
@@ -38,6 +40,8 @@ function App() {
           <Route path='ResetPassword/' element ={<ResetPassword/>}/>
           <Route path='doctorsListhome/' element ={<DoctorListHome/>}/>
           <Route path='doctorApproval/' element ={<DoctorApproval/>}/>
+          <Route path='doctorProfileInHome/:id' element ={<DoctorProfikeInHome/>}/>
+
 
 
 
@@ -59,7 +63,7 @@ function App() {
                <Route path='department/' element ={<Department/>}/>,
                <Route path='addDepartment/' element ={<AddDepartmentForm/>}/>,
                <Route path='doctorsRequest/' element ={<DocorsRequest/>}/>,
-               <Route path='AcceptDoctor/' element ={<AcceptDoctor/>}/>,
+               <Route path='AcceptDoctor/:id' element ={<AcceptDoctor/>}/>,
 
                ]}/>
                

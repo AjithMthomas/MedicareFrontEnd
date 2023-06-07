@@ -32,7 +32,7 @@ useEffect(()=>{
     };
 
     try {
-      const response = await axios.post('/api/shedule/', slotData);
+      const response = await axios.post('/doctor/shedule/', slotData);
       console.log(response.data);
       toast.success('slot created succesfully')
       // Handle success or redirect if needed

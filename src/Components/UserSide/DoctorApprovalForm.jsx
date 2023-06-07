@@ -7,8 +7,9 @@ import {
   import React, { useState, useEffect } from "react";
   import axios from "axios";
   import { toast,Toaster } from 'react-hot-toast';
-  import login,{ getLocal } from '../Contexts/auth'
+  import { getLocal } from '../Contexts/auth'
   import jwt_decode from 'jwt-decode';
+  import baground from "../../images/thome.jpg"
   
   export default function DoctorApprovalForm() {
     const [departments, setDepartments] = useState([]);
@@ -58,7 +59,7 @@ import {
           formData.append("user",user);
       
           // Submit the form data to the server
-          const response = await axios.post("/api/createDoctors/", formData);
+          const response = await axios.post("/doctor/createDoctors/", formData);
       
           // Check the response status code
           if (response.status === 201) {
@@ -76,7 +77,7 @@ import {
 
     async function getDepartments() {
       try {
-        const response = await axios.get("/api/departments");
+        const response = await axios.get("/doctor/departments");
         setDepartments(response.data);
       } catch (error) {
         console.log("could not fetch data", error);
@@ -93,15 +94,16 @@ import {
    
   
     return (
-      <div className="flex place-content-center w-full bg-bl bg-opacity-50 top-0 place-items-center h-3/4 mt-12 mb-32">
+    <div className="w-full h-screen bg-cover " style={{backgroundImage: `url(${baground})`}}>
+      <div className="flex place-content-center top-0 place-items-center h-/4  mb-32 ">
         <Toaster position='top-center' reverseOrder='false' limit={1} ></Toaster>
-        <Card color="transparent" shadow={false} className="border 2 border-gray-400 p-4 w-3/5">
-          <Typography variant="h4" color="blue-gray" className="font-serif mt-2">
+        <Card  shadow={false} className=" ms-40 p-4 w-3/6 mt-16 bg-cover bg-blur-lg">
+          <Typography variant="h4" color="blue-gray" className="font-serif mt-2 ">
             FILL THE FORM
           </Typography>
-          <form className="mt-8 mb-2 w-full flex flex-col place-content-center place-items-center"  onSubmit={createDoctor}>
+          <form className="mt-8 mb-2 w-full flex flex-col place-content-center place-items-center "  onSubmit={createDoctor}>
             <div className="mb-4 flex flex-col gap-6 w-3/4">
-              <Input size="lg" label="Address" className="mt-3 text-start p-3" name="address" onChange={(e) => setAddress(e.target.value)} />
+              <Input size="lg" label="Address" className="mt-4 text-start p-3" name="address" onChange={(e) => setAddress(e.target.value)} />
   
               <div className="relative mt-3">
                 <select
@@ -118,11 +120,11 @@ import {
                 </select>
               </div>
   
-              <Input size="lg" label="Experience" type="number" name="experience" className="mt-3 p-3" onChange={(e) => setExperience(e.target.value)} />
+              <Input size="lg" label="Experience" type="number" name="experience" className="mt-4 p-3" onChange={(e) => setExperience(e.target.value)} />
   
-              <Input size="lg" label="Required Fee in Rs." type="number" name="fee" step="0.01" className="mt-3 p-3" onChange={(e) => setFee(e.target.value)} />
+              <Input size="lg" label="Required Fee in Rs." type="number" name="fee" step="0.01" className="mt-4 p-3" onChange={(e) => setFee(e.target.value)} />
   
-              <Input size="lg" label="Certificate" type="file" name="certificate" className="mt-3 p-3" onChange={(e) => setCertificate(e.target.files[0])} />
+              <Input size="lg" label="Certificate" type="file" name="certificate" className="mt-4  p-3" onChange={(e) => setCertificate(e.target.files[0])} />
             </div>
             
             <Button className="mt-6 w-3/4 p-3 mb-7" type="submit" >
@@ -130,6 +132,7 @@ import {
             </Button>
           </form>
         </Card>
+      </div>
       </div>
     );
   }

@@ -19,7 +19,7 @@ const Appointments = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 ">
       <h2 className="text-3xl font-bold mb-4 text-left">Appointments</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full border border-gray-300 divide-y divide-gray-300">

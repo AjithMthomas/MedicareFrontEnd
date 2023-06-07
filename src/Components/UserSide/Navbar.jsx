@@ -33,7 +33,7 @@ export default function NavbarComponent() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-       <Link to='doctorsListhome/'> <a href="#" className="flex items-center  hover:text-blue-500 ">
+       <Link to='/doctorsListhome/'> <a href="#" className="flex items-center  hover:text-blue-500 ">
           Doctors
         </a></Link>
       </Typography>
@@ -74,13 +74,13 @@ export default function NavbarComponent() {
     <Navbar className="bg-nav py-2 px-4 lg:px-8 lg:py-4 ">
       <Toaster position='top-center' reverseOrder='false' limit={1} ></Toaster>
         <div className="bg-nav container  flex items-center justify-between text-blue-gray-900 text-black">
-        <Typography
+      <Link to='/'> <Typography
           as="a"
           href="#"
           className="mr-4 cursor-pointer py-1.5 font-medium"
         >
           MEDIcare
-        </Typography>
+        </Typography></Link> 
         <div className="hidden lg:block">{navList}</div>
         <Link to="/login"><Button variant="gradient" size="sm" className="hidden lg:inline-block  hover:bg-blue-500">
           {localResponse?(<span className=" text-black ">Dashboard</span>):
