@@ -23,6 +23,7 @@ import Dashboard from "./Components/Doctor/Dashbord"
 import CreateSlotForm from "./Components/Doctor/CreateSlotForm"
 import Appointment from "./Components/Doctor/Appointments"
 import DoctorProfikeInHome from "./pages/User/DoctorProfileInHome"
+import CreateBlog from "./Components/Doctor/CreateBlog"
 
 
 
@@ -50,7 +51,9 @@ function App() {
             <Route path='' element ={<Dashboard/>}/>,
              <Route path='shedule/' element ={<CreateSlotForm/>}/>,
              <Route path='appointment/' element ={<Appointment/>}/>,
+             <Route path='createBlog/' element ={<CreateBlog/>}/>,
           ]}/>
+
 
 
         

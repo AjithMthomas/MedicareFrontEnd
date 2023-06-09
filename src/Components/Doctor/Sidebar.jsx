@@ -39,6 +39,7 @@ export default function Sidebar() {
       <Avatar src={profile} alt="avatar" size="sm" className="h-[8rem] w-[8rem] ms-16" />
         <Typography variant="h5" color="blue-gray">
         Doctor Dashboard
+        
         </Typography>
       </div>
       <List>
@@ -102,12 +103,12 @@ export default function Sidebar() {
           </ListItemSuffix>
         </ListItem>
        
-        <ListItem>
+       <Link to='createBlog/'> <ListItem>
           <ListItemPrefix>
             <Cog6ToothIcon className="h-5 w-5" />
           </ListItemPrefix>
          Create blog
-        </ListItem>
+        </ListItem></Link>
         <ListItem>
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />

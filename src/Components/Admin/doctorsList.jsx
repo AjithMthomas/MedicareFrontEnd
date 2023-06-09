@@ -11,7 +11,7 @@ function DoctorsList() {
 
     async function getDoctors(){
         try{
-            const response = await axios.get('/api/doctors/')
+            const response = await axios.get('/doctor/doctors/')
             setDoctors(response.data)
 
         }catch(error){

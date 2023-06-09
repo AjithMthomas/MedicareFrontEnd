@@ -19,7 +19,7 @@ export default function AcceptDoctor() {
 
   async function getDoctor() {
     try {
-      const response = await axios.get(`/api/viewDoctorRequest/${id}`);
+      const response = await axios.get(`/doctor/viewDoctorRequest/${id}`);
       setDoctor(response.data);
       console.log(response.data);
     } catch (error) {

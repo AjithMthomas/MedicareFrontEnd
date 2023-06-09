@@ -67,7 +67,7 @@ export default function AdiminSidebar() {
                 </ListItemPrefix>
                Doctors list
               </ListItem></Link>
-             <Link to='doctorsRequest/'> <ListItem>
+             <Link to='/AdminDashboard/doctorsRequest/'> <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>

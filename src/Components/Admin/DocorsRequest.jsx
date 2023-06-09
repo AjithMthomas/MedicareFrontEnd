@@ -13,7 +13,7 @@ function DocorsRequest() {
     
     async function getDoctors(){
         try{
-            const response = await axios.get('/api/doctorsRequest/')
+            const response = await axios.get('/docter/doctorsRequest/')
             console.log(response.data)
             setDoctors(response.data)
         }catch(e){

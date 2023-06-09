@@ -20,8 +20,7 @@ useEffect(()=>{
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const localResponse = getLocal('authToken');
-    const response = jwtDecode(localResponse) 
+   
     const slotData = {
       doctor,
       date,
@@ -35,11 +34,11 @@ useEffect(()=>{
       const response = await axios.post('/doctor/shedule/', slotData);
       console.log(response.data);
       toast.success('slot created succesfully')
-      // Handle success or redirect if needed
+      
     } catch (error) {
       console.error(error);
       toast.error('couldnt create slot')
-      // Handle error
+    
     }
   };
 

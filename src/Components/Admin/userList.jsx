@@ -23,7 +23,7 @@ function UsersList() {
   async function changeStatus(id) {
     console.log(id)
     try {
-      const response = await axios.get(`/api/blockUser/${id}`);
+      const response = await axios.get(`/doctor/blockUser/${id}`);
       console.log(response,'blockuser')
       getUser();
     } catch (error) {

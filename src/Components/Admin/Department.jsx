@@ -10,7 +10,7 @@ function Department() {
     
     async function getDeparments(){
         try{
-            const response = await axios.get('/api/departments')
+            const response = await axios.get('/doctor/departments')
             setDepartments(response.data)
         }catch(error){
             console.log('could not fetch data',error)

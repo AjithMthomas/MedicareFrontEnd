@@ -10,7 +10,7 @@ function Appointments() {
 
    async function getAppointments(){
     try{
-        const response  = await axios.get('/api/appointments')
+        const response  = await axios.get('/doctor/appointments')
         console.log(response.data)
         setAppointments(response.data)
     }catch(error){
