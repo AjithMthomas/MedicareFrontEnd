@@ -6,6 +6,7 @@ import { BASE_URL } from "../../Utils/config";
 export default function DoctorProfileHome() {
   const [doctor, setDoctor] = useState({});
   const [slots, setSlots] = useState([]);
+  const [showSlots, setShowSlots] = useState(false); // Added state for showing or hiding slots
 
   const { id } = useParams();
 
@@ -33,6 +34,10 @@ export default function DoctorProfileHome() {
     getDoctor();
     getSlots();
   }, []);
+
+  const toggleSlots = () => {
+    setShowSlots(!showSlots);
+  };
 
   return (
     <div>
@@ -66,11 +71,24 @@ export default function DoctorProfileHome() {
 
           <div className="mt-4">
             <h4 className="text-lg font-bold mb-2">Available Slots:</h4>
-            {slots.map((slot) => (
-              <p key={slot.id} className="mb-2">
-                {slot.start_time} - {slot.end_time}
-              </p>
-            ))}
+            <button
+              className="bg-blue-500 text-white py-2 px-4 rounded-md"
+              onClick={toggleSlots}
+            >
+              {showSlots ? "Hide Slots" : "Show Slots"}
+            </button>
+            {showSlots && (
+              <div className="mt-4">
+                {slots.map((slot) => (
+                  <button
+                    key={slot.id}
+                    className="bg-gray-200 text-gray-800 py-2 px-4 rounded-md mb-2"
+                  >
+                    {slot.start_time} - {slot.end_time}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
