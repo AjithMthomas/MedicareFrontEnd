@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "../../Utils/config";
+import doctorImg from "../../images/doctorAvatar.jpg";
 
 export default function DoctorProfileHome() {
   const [doctor, setDoctor] = useState({});
   const [slots, setSlots] = useState([]);
-  const [showSlots, setShowSlots] = useState(false); // Added state for showing or hiding slots
+  const [showSlots, setShowSlots] = useState(false);
 
   const { id } = useParams();
 
@@ -44,11 +45,19 @@ export default function DoctorProfileHome() {
       <div className="bg-white rounded-lg shadow-md p-8 h-screen">
         <h2 className="text-2xl font-bold mb-4">Doctor's Profile</h2>
         <div className="flex items-center mb-4">
-          <img
-            src={doctor?.user && `${BASE_URL}/${doctor?.user?.image}`}
-            alt="Profile Picture"
-            className="w-20 h-20 rounded-full mr-4"
-          />
+          {doctor?.user?.image ? (
+            <img
+              src={BASE_URL+doctor?.user.image}
+              alt="Profile Picture"
+              className="w-20 h-20 rounded-full mr-4"
+            />
+          ) : (
+            <img
+              src={doctorImg}
+              alt="Profile Picture"
+              className="w-20 h-20 rounded-full mr-4"
+            />
+          )}
           <div>
             <h3 className="text-xl font-bold">
               {doctor.user && doctor.user.username}
@@ -78,11 +87,11 @@ export default function DoctorProfileHome() {
               {showSlots ? "Hide Slots" : "Show Slots"}
             </button>
             {showSlots && (
-              <div className="mt-4">
+              <div className="mt-4 h-full w-full text-black">
                 {slots.map((slot) => (
                   <button
                     key={slot.id}
-                    className="bg-gray-200 text-gray-800 py-2 px-4 rounded-md mb-2"
+                    className=" text-white py-2 px-6 me-2 rounded-md mb-2 bg-blue-500"
                   >
                     {slot.start_time} - {slot.end_time}
                   </button>
