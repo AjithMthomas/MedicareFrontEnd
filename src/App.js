@@ -24,6 +24,7 @@ import CreateSlotForm from "./Components/Doctor/CreateSlotForm"
 import Appointment from "./Components/Doctor/Appointments"
 import DoctorProfikeInHome from "./pages/User/DoctorProfileInHome"
 import CreateBlog from "./Components/Doctor/CreateBlog"
+import ChatComponent from './Components/chat/chat';
 
 
 
@@ -53,8 +54,9 @@ function App() {
              <Route path='appointment/' element ={<Appointment/>}/>,
              <Route path='createBlog/' element ={<CreateBlog/>}/>,
           ]}/>
-
-
+     
+     {/* chat */}
+     <Route path='chat/' element ={<ChatComponent/>}/>
 
         
         {/* admin interface */}

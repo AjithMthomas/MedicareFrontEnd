@@ -26,7 +26,7 @@ function DoctorsList() {
 
     async function changeStatus(id){
         try{
-            const response = await axios.get(`/api/blockDoctor/${id}`)
+            const response = await axios.get(`/doctor/blockDoctor/${id}`)
             getDoctors()
         }catch(error){
             console.error('No related user',error)
