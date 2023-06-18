@@ -1,8 +1,18 @@
 import axios from 'axios'
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useNaviagate} from 'react'
 import { FaEye } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { RiCloseCircleFill } from 'react-icons/ri';
+import { BASE_URL } from '../../Utils/config';
+import { toast, Toaster } from 'react-hot-toast';
 
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
 
 
 
@@ -10,23 +20,107 @@ import { Link } from 'react-router-dom';
 function DocorsRequest() {
   
     const [doctors,setDoctors] = useState([])
-    
+    const [view,setVIew] = useState(false)
+    const [doctor, setDoctor] = useState({});
+
+
+
     async function getDoctors(){
         try{
-            const response = await axios.get('/docter/doctorsRequest/')
+            const response = await axios.get('/admins/doctorsRequest/')
             console.log(response.data)
             setDoctors(response.data)
         }catch(e){
             console.log(e)
         }
     }
+
+    
+  
+    async function getDoctor(id) {
+        setVIew(true)
+      try {
+        const response = await axios.get(`/doctor/viewDoctorRequest/${id}`);
+        setDoctor(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("error", error);
+      }
+    }
+    
+    async function acceptDoctor(id){
+      try{
+        const response = await axios.get(`/admins/accept_doctor/${id}`)
+        toast.success('Request accepted')
+        setVIew(true)
+       
+
+      }catch(e){
+        console.log(e)
+      }
+    }
+    async function rejectDoctor(id){
+      try{
+        const response = await axios.get(`/admins/reject_doctor/${id}`)
+        toast.error('Request rejected')
+        setVIew(true)
+       
+
+      }catch(e){
+        console.log(e)
+      }
+    }
+
     useEffect(()=>{
         getDoctors()
         },[])
-
+    
   
   return (
     <div className='flex h-full bg-acontent mt-3'>
+    {view?
+        
+        <div className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col place-items-center place-content-center'>
+                <Toaster position="top-right" reverseOrder={false} limit={1}></Toaster>
+
+          <RiCloseCircleFill className='w-8 text-end h-8 text-gray-100 mt-0' onClick={()=>setVIew(false)}/>
+        <Card className="mt-6 w-2/4 h-3/4 ">
+    
+        <CardHeader color="blue-gray" className="relative ">
+          <div className="h-full">
+          
+          <img
+
+            src={BASE_URL+doctor.certificate}
+            alt="image"
+            className="w-full h-full bg-cover "
+          />
+          </div>
+        </CardHeader>
+        <CardBody>
+          <Typography variant="h5" color="blue-gray" className="mb-2">
+            Address: {doctor.address}
+          </Typography>
+          <Typography variant="h5" color="blue-gray" className="mb-2">
+            Specialization: {doctor.specialization}
+          </Typography>
+          <Typography variant="h5" color="blue-gray" className="mb-2">
+            Experience: {doctor.experience} years
+          </Typography>
+          <Typography variant="h5" color="blue-gray" className="mb-2">
+            Fee: RS {doctor.fee}
+          </Typography>
+        </CardBody>
+        <CardFooter className="pt-0 justify-between">
+          <Button className="bg-green-500 p-3 w-40" onClick={()=>acceptDoctor(doctor.id)}>Accept</Button>
+          <Button className="bg-red-700 p-3 w-40 ms-3" onClick={()=>rejectDoctor(doctor.id)}>Reject</Button>
+        </CardFooter>
+       
+      </Card>
+      </div>
+       
+    :
+    
        
       <div className='px-5 w-full h-auto min-h-screen mx-5 mt-2  py-8 font-poppins flex flex-col place-content-start place-items-center bg-white shadow-xl rounded-xl'>
         <div className='w-full h-screen px-3 font-poppins'>
@@ -72,7 +166,7 @@ function DocorsRequest() {
                             </td>
 
                             <td class="px-6 py-4">
-                         <Link to={`/AdminDashboard/AcceptDoctor/${doctor.id}`}><div className="flex">
+                         <div className="flex" onClick={()=>getDoctor(doctor.id)}>
                                 <label class="inline-flex relative items-center mr-5 cursor-pointer">
                                     <input
                                         type="checkbox"
@@ -89,7 +183,7 @@ function DocorsRequest() {
                                             View
                                         </span>
                                 </label>
-                            </div></Link> 
+                            </div>
                         </td>
                         </tr>
                      ) )} 
@@ -98,7 +192,10 @@ function DocorsRequest() {
         </div>
     </div>
     </div>
+}
     </div>
+            
+
   )
 }
 

@@ -17,10 +17,6 @@ export default function NavbarComponent() {
 
   const localResponse = getLocal('authToken');
 
-
-
-
- 
   useEffect(() => {
     window.addEventListener("resize", () => window.innerWidth >= 960 && setOpenNav(false));
   }, []);
@@ -71,7 +67,8 @@ export default function NavbarComponent() {
   );
  
   return (
-    <Navbar className="bg-nav py-2 px-4 lg:px-8 lg:py-4 ">
+    <>
+    <Navbar className="sticky bg-nav  lg:px-8 lg:py-4  top-0 z-50">
       <Toaster position='top-center' reverseOrder='false' limit={1} ></Toaster>
         <div className="bg-nav container  flex items-center justify-between text-blue-gray-900 text-black">
       <Link to='/'> <Typography
@@ -133,5 +130,6 @@ export default function NavbarComponent() {
         </div>
       </MobileNav>
     </Navbar>
+    </>
   );
 }

@@ -81,12 +81,7 @@ export default function Sidebar() {
           </AccordionBody>
         </Accordion>
         <hr className="my-2 border-blue-gray-50" />
-        <ListItem>
-          <ListItemPrefix>
-            <PresentationChartBarIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Dashboard
-        </ListItem>
+        
         <ListItem>
           <ListItemPrefix>
             <UserCircleIcon className="h-5 w-5" />

@@ -10,6 +10,7 @@ import {
   import { getLocal } from '../Contexts/auth'
   import jwt_decode from 'jwt-decode';
   import baground from "../../images/thome.jpg"
+  import { useNavigate } from "react-router-dom";
   
   export default function DoctorApprovalForm() {
     const [departments, setDepartments] = useState([]);
@@ -19,17 +20,19 @@ import {
     const [fee, setFee] = useState(0);
     const [certificate, setCertificate] = useState(null);
     const [user,setUser] = useState("")
-    const  [is_approved,setIs_approved] = useState(false)
+    const [is_approved,setIs_approved] = useState(false)
+  
+    const histoty = useNavigate()
   
     const createDoctor = async (e) => {
         e.preventDefault()
         try {
           if (!localStorage.getItem('authToken')) {
-            // User is not logged in, redirect to login page
+             histoty('login')
             return;
           }
       
-          // Validate the input data
+          
           if (address === '') {
             throw new Error('Please enter an address');
           }
@@ -54,24 +57,20 @@ import {
           formData.append("fee", fee);
           formData.append("certificate", certificate);
           formData.append("is_approved", is_approved);
-          // Append the user ID to the FormData object
-          
           formData.append("user",user);
       
           // Submit the form data to the server
           const response = await axios.post("/doctor/createDoctors/", formData);
       
-          // Check the response status code
           if (response.status === 201) {
-            // Success!
-            toast.success('Doctor request sent successfully');
+            toast.success('Doctor request sent successfully,check email');
           } else {
             // Error!
             toast.error('Error creating doctor');
           }
         } catch (error) {
           console.log(error);
-          toast.error(error.message);
+          toast.error('coudnt submit the request');
         }
       };
 

@@ -24,7 +24,7 @@ import CreateSlotForm from "./Components/Doctor/CreateSlotForm"
 import Appointment from "./Components/Doctor/Appointments"
 import DoctorProfikeInHome from "./pages/User/DoctorProfileInHome"
 import CreateBlog from "./Components/Doctor/CreateBlog"
-import ChatComponent from './Components/chat/chat';
+import ChatGroup from './pages/chat/chatgroups';
 
 
 
@@ -56,7 +56,7 @@ function App() {
           ]}/>
      
      {/* chat */}
-     <Route path='chat/' element ={<ChatComponent/>}/>
+     <Route path='chat/' element ={<ChatGroup/>}/>
 
         
         {/* admin interface */}
@@ -68,7 +68,7 @@ function App() {
                <Route path='department/' element ={<Department/>}/>,
                <Route path='addDepartment/' element ={<AddDepartmentForm/>}/>,
                <Route path='doctorsRequest/' element ={<DocorsRequest/>}/>,
-               <Route path='AcceptDoctor/:id' element ={<AcceptDoctor/>}/>,
+              //  <Route path='AcceptDoctor/:id' element ={<AcceptDoctor/>}/>,
 
                ]}/>
                
