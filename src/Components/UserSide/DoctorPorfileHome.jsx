@@ -4,22 +4,27 @@ import { Link, useParams } from "react-router-dom";
 import { BASE_URL } from "../../Utils/config";
 import doctorImg from "../../images/doctorAvatar.jpg";
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import PaymentDetails from "../Payment/PaymentDetails";
 
 export default function DoctorProfileHome() {
   const [doctor, setDoctor] = useState({});
-  const [date, setDate] = useState();
+  const [date, setDate] = useState('');
   const [slots, setSlots] = useState([]);
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [showDate, setShowDate] = useState(false);
+  const [showPayment,setShowPayment] = useState(false)
+ const [bookedSlot,setBookedSlot] = useState('')
 
   const { id } = useParams();
 
+ 
+  
   async function getDoctor() {
     try {
       const response = await axios.get(`/doctor/getDoctorInHome/${id}`);
       setDoctor(response.data);
-      console.log(response.data);
+      console.log(response.data); 
     } catch (e) {
       console.log(e);
     }
@@ -27,10 +32,11 @@ export default function DoctorProfileHome() {
 
   async function getSlots() {
     try {
-      const doc = doctor.user.id;
+      const doc = doctor.user?.id;
       const response = await axios.get(`/doctor/getSlotsInHome/${doc}`);
       console.log(response.data, "sssssss");
       setSlots(response.data);
+      return response.data;
     } catch (e) {
       console.log(e);
     }
@@ -46,16 +52,13 @@ export default function DoctorProfileHome() {
     }
   }
 
-  useEffect(() => {
-    getDoctor();
-    getSlots();
-    getBlogs();
-  }, [date]);
+  
 
-  const handleChange = (e) => {
-    const selectedDate = e.target.value;
-    setDate(selectedDate);
-    const selected = slots.filter((slot) => slot.date === selectedDate);
+  const handleChange = async (e) => {
+   
+    setDate( e.target.value)
+    const  slots = await getSlots()
+    const selected = slots?.filter((slot) => slot.date ===  e.target.value);
     setSelectedSlots(selected);
   };
   
@@ -63,7 +66,28 @@ export default function DoctorProfileHome() {
   const toggleDate = () => {
     setShowDate(true);
   };
+  
 
+
+ const handleClick = (id) => {
+  console.log()
+  const buttonElement = document.getElementById(id);
+  if (buttonElement) {
+    buttonElement.classList.toggle('bg-blue-500');
+    buttonElement.classList.toggle('bg-green-500');
+  }
+  console.log(selectedSlots,'selected')
+  const bookedslot = selectedSlots?.filter((selected) => selected.id === id)
+  
+  setBookedSlot(bookedslot)
+};
+
+  
+  
+  useEffect(() => {
+    getDoctor();
+    getBlogs();
+  }, []);
 
 
   return (
@@ -126,28 +150,43 @@ export default function DoctorProfileHome() {
           </div>
         )}
       </div>
-      {showDate && selectedSlots.length > 0 && (
+   
+
+      {showDate && selectedSlots?.length > 0 && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg p-6 ">
-            <AiOutlineCloseCircle className="text-end text-gray-500" onClick={()=>setShowDate(false)}/>
+          <div className="bg-white rounded-lg p-6  ">
+            <div className="flex place-content-end ">
+            <AiOutlineCloseCircle className="text-end text-gray-500" onClick={()=>{setShowDate(false);setSelectedSlots([]);setDate('')}}/>
+            </div>
+           
             <h5 className="mt-1 font-serif text-xl">Available Slots:</h5>
             <div className="grid grid-cols-2 gap-4 mt-4">
               {selectedSlots.map((slot) => (
                 <button
                   key={slot.id}
-                  className="bg-blue-500 text-white py-2 px-4 rounded-md"
+                  className="bg-blue-500 text-white py-2 px-4 rounded-md shadow-2xl" id={slot.id}
+                  onClick={()=>handleClick(slot.id)}
                 >
                   {slot.start_time}-{slot.end_time}
                 </button>
               ))}
             </div>
+            <div className="w-full flex place-content-center">
+            <button className="bg-yellow-500 text-black py-2 px-4 rounded-md border-black mt-4 " onClick={()=>setShowPayment(true)}>Book</button>
+            </div>
           </div>
+          
         </div>
       )}
       {showDate && selectedSlots.length === 0 && (
-        <p>No slots available on that date.</p>
+        <p className="font-serif text-xl text-red-500">No slots available on that date.</p>
       )}
-
+      {showPayment&&
+      <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+        <PaymentDetails doctor={doctor} bookedSlot={bookedSlot}/>
+      </div>
+   
+      }
       <div className="mt-8 mb-48">
         <h4 className="font-bold mb-4 text-start text-3xl">Blogs:</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

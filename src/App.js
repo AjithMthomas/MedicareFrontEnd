@@ -25,6 +25,8 @@ import Appointment from "./Components/Doctor/Appointments"
 import DoctorProfikeInHome from "./pages/User/DoctorProfileInHome"
 import CreateBlog from "./Components/Doctor/CreateBlog"
 import ChatGroup from './pages/chat/chatgroups';
+import PaymentDetails from './Components/Payment/PaymentDetails';
+import PaymentSuccessPage from './Components/Payment/PaymentSucces';
 
 
 
@@ -57,6 +59,12 @@ function App() {
      
      {/* chat */}
      <Route path='chat/' element ={<ChatGroup/>}/>
+
+     {/* Payment */}
+     <Route path='payment/' element ={<PaymentDetails/>}/>
+     <Route path='succes/' element ={<PaymentSuccessPage/>}/>
+
+
 
         
         {/* admin interface */}

@@ -12,12 +12,9 @@ const ChatComponent = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
 
-  const scroll = useRef()
-
+  const scroll = useRef();
 
   const socketRef = useRef(null);
-  
- 
 
   useEffect(() => {
     const localResponse = getLocal('authToken');
@@ -35,11 +32,8 @@ const ChatComponent = () => {
       });
   }, []);
 
-
-
   useEffect(() => {
     if (activeRoomId) {
-
       socketRef.current = new WebSocket(`ws://localhost:8000/ws/chat/${activeRoomId}/`);
 
       socketRef.current.onmessage = (event) => {
@@ -64,8 +58,6 @@ const ChatComponent = () => {
     };
   }, [activeRoomId]);
 
-
-
   const sendMessage = () => {
     const message = {
       content: newMessage,
@@ -86,28 +78,25 @@ const ChatComponent = () => {
     if (socketRef.current) {
       socketRef.current.send(JSON.stringify(message));
     }
-   
+
     setNewMessage('');
   };
 
-
-  useEffect(()=>{
-    scroll.current?.scrollIntoView({behavior:'smooth'})
-  },[messages])
-
+  useEffect(() => {
+    scroll.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   return (
-    <div className="flex h-screen m-5 rounded-md" >
+    <div className="flex h-screen  rounded-md bg-gray-200">
       <ChatSidebar
         rooms={rooms}
         activeRoomId={activeRoomId}
         setActiveRoomId={setActiveRoomId}
       />
-      <div className="flex-grow">
-        {/* Chat component */}
+      <div className="flex-grow ">
         <div className="flex flex-col h-screen">
-          <div className="py-4 px-6 bg-gray-900 text-white">
-            <h2 className="text-xl font-bold">Chat with Doctor</h2>
+          <div className="py-4 px-6 bg-gray-700 text-white">
+            <h2 className="text-xl font-bold">Share your views</h2>
           </div>
           <div className="flex-grow p-6 overflow-y-auto">
             {messages.length > 0 ? (
@@ -117,7 +106,7 @@ const ChatComponent = () => {
                   ref={scroll}
                   className={`flex ${
                     message.author === author ? 'justify-end' : 'justify-start'
-                  } mb-2`}
+                  } mb-4`}
                 >
                   <div
                     className={`${
@@ -126,43 +115,53 @@ const ChatComponent = () => {
                         : 'bg-blue-500 text-white self-start'
                     } py-2 px-4 rounded-lg max-w-md`}
                   >
-                   {message.author === author ? (
-                  <>
-                    {message.content}
-                    <Avatar src="https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg" alt="avatar" size="xs" className='ms-3'/>
-                    
-                  </>
-                ) : (
-                  <>
-                    <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU" alt="avatar" size="xs" className='me-3' />
-                    {message.content}
-                  </>
-                )}
-                </div>
+                    <div className="flex items-center">
+                      {message.author === author ? (
+                        <>
+                          <div className="mr-3">{message.content}</div>
+                          <Avatar
+                            src="https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg"
+                            alt="avatar"
+                            size="xs"
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <Avatar
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU"
+                            alt="avatar"
+                            size="xs"
+                            className="mr-3"
+                          />
+                          <div>{message.content}</div>
+                        </>
+                      )}
+                    </div>
+                  </div>
                 </div>
               ))
             ) : (
               <div className="text-center text-gray-500">No messages yet</div>
             )}
           </div>
-          <div className="py-4 px-6 bg-gray-200">
+          <div className="py-4 px-6 bg-gray-300">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 sendMessage();
               }}
-              className="flex space-x-2 "
+              className="flex space-x-2"
             >
               <input
                 type="text"
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
-                className="flex-grow border border-gray-300 rounded-lg px-4 py-2 focus:outline-none"
+                className="flex-grow border border-gray-400 rounded-lg px-4 py-2 focus:outline-none"
                 placeholder="Type a message..."
               />
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg "
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg"
               >
                 Send
               </button>

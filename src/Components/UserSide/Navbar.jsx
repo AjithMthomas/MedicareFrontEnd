@@ -43,7 +43,7 @@ export default function NavbarComponent() {
           Blogs
         </a>
       </Typography>
-      <Typography
+      <Link to='/chat'><Typography
         as="li"
         variant="small"
         color="blue-gray"
@@ -52,7 +52,7 @@ export default function NavbarComponent() {
         <a href="#" className="flex items-center  hover:text-blue-500">
           Communities
         </a>
-      </Typography>
+      </Typography></Link>
       <Typography
         as="li"
         variant="small"
@@ -68,7 +68,7 @@ export default function NavbarComponent() {
  
   return (
     <>
-    <Navbar className="sticky bg-nav  lg:px-8 lg:py-4  top-0 z-50">
+    <Navbar className="sticky bg-nav  lg:px-8 lg:py-4  top-0 z-50 ">
       <Toaster position='top-center' reverseOrder='false' limit={1} ></Toaster>
         <div className="bg-nav container  flex items-center justify-between text-blue-gray-900 text-black">
       <Link to='/'> <Typography

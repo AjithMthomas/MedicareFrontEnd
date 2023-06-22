@@ -72,7 +72,7 @@ export default function DoctorList() {
                       ripple="light"
                       block
                       color="blueGray"
-                      className="hover:bg-blueGray-100 p-4"
+                      className="hover:bg-blueGray-100 p-3"
                     >
                       Book Appointment
                     </Button>
