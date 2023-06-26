@@ -17,14 +17,13 @@ export default function DoctorList() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate an asynchronous task
+  
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
 
-    // Fetch doctors data from API
     axios
-      .get("/doctor/docorsInUserSide/")
+      .get("http://127.0.0.1:8000/doctor/docorsInUserSide/")
       .then((response) => {
         setDoctors(response.data);
         console.log(response.data);

@@ -9,7 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import { Toaster } from 'react-hot-toast';
 import { getLocal } from '../Contexts/auth'
-import jwt_decode from 'jwt-decode';
+
  
 export default function NavbarComponent() {
   const [openNav, setOpenNav] = useState(false);

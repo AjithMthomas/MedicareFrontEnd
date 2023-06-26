@@ -14,7 +14,7 @@ export default function DoctorProfileHome() {
   const [blogs, setBlogs] = useState([]);
   const [showDate, setShowDate] = useState(false);
   const [showPayment,setShowPayment] = useState(false)
- const [bookedSlot,setBookedSlot] = useState('')
+  const [bookedSlot,setBookedSlot] = useState('')
 
   const { id } = useParams();
 
