@@ -14,6 +14,8 @@ import { format } from 'date-fns';
 
 export default function PaymentDetails(props) {
   const { doctor, bookedSlot } = props;
+  console.log(bookedSlot[0].id,'bopkedsfjosidfj')
+
   const start_time = format(new Date(`2000-01-01T${bookedSlot[0].start_time}`), 'h:mm a');
   const end_time = format(new Date(`2000-01-01T${bookedSlot[0].end_time}`), 'h:mm a');
 

@@ -26,6 +26,7 @@ useEffect(()=>{
 
       // we will send the response we've got from razorpay to the backend to validate the payment
       bodyData.append("response", JSON.stringify(response));
+      bodyData.append('slot',bookedSlot[0].id)
 
       await Axios({
         url: `${BASE_URL}/razorpay/payment/success/`,
@@ -69,7 +70,7 @@ useEffect(()=>{
     bodyData.append("user",user)
     bodyData.append('doctor',doctor.id)
     bodyData.append('fee',doctor.fee)
-    bodyData.append('slot',bookedSlot.id)
+    bodyData.append('slot',bookedSlot[0].id)
 
     const data = await Axios({
       url: `${BASE_URL}/razorpay/pay/`,
@@ -79,16 +80,15 @@ useEffect(()=>{
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      data: bodyData,
+      data: bodyData, 
     }).then((res) => {
       return res;
     });
 
-    // in data we will receive an object from the backend with the information about the payment
-    //that has been made by the user
+  
 
     var options = {
-      key_id: process.env.REACT_APP_PUBLIC_KEY, // in react your environment variable must start with REACT_APP_
+      key_id: process.env.REACT_APP_PUBLIC_KEY, 
       key_secret: process.env.REACT_APP_SECRET_KEY,
       amount: data.data.payment.amount,
       currency: "INR",

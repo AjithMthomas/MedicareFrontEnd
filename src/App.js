@@ -27,6 +27,8 @@ import CreateBlog from "./Components/Doctor/CreateBlog"
 import ChatGroup from './pages/chat/chatgroups';
 import PaymentDetails from './Components/Payment/PaymentDetails';
 import PaymentSuccessPage from './Components/Payment/PaymentSucces';
+import VideoCall from './pages/VideocallPage/VideoCall';
+import UserProfile from './pages/User/UserProfile';
 
 
 
@@ -45,6 +47,7 @@ function App() {
           <Route path='doctorsListhome/' element ={<DoctorListHome/>}/>
           <Route path='doctorApproval/' element ={<DoctorApproval/>}/>
           <Route path='doctorProfileInHome/:id' element ={<DoctorProfikeInHome/>}/>
+          <Route path='userprofile/' element ={<UserProfile/>}/>
 
 
 
@@ -59,6 +62,9 @@ function App() {
      
      {/* chat */}
      <Route path='chat/' element ={<ChatGroup/>}/>
+
+     {/* Videocall */}
+     <Route path='videoCall/' element ={<VideoCall/>}/>
 
      {/* Payment */}
      <Route path='payment/' element ={<PaymentDetails/>}/>

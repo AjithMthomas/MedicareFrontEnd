@@ -79,10 +79,15 @@ export default function NavbarComponent() {
           MEDIcare
         </Typography></Link> 
         <div className="hidden lg:block">{navList}</div>
+        <div className="">
         <Link to="/login"><Button variant="gradient" size="sm" className="hidden lg:inline-block  hover:bg-blue-500">
           {localResponse?(<span className=" text-black ">Dashboard</span>):
           (<span className=" text-black ">Login</span>)}
         </Button></Link>
+        {localResponse&&<Link to="/userprofile"><Button variant="gradient" size="sm" className=" ms-2 hidden lg:inline-block  hover:bg-blue-500" onClick={()=>localStorage.setItem('component','profiledetails')}>
+          <span className=" text-black ">profile</span>
+        </Button></Link>}
+        </div>
         <IconButton
           variant="text"
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"

@@ -14,7 +14,7 @@ export default function DoctorProfileHome() {
   const [blogs, setBlogs] = useState([]);
   const [showDate, setShowDate] = useState(false);
   const [showPayment,setShowPayment] = useState(false)
-  const [bookedSlot,setBookedSlot] = useState('')
+  const [bookedSlot,setBookedSlot] = useState([])
 
   const { id } = useParams();
 
@@ -78,6 +78,7 @@ export default function DoctorProfileHome() {
   }
   console.log(selectedSlots,'selected')
   const bookedslot = selectedSlots?.filter((selected) => selected.id === id)
+  console.log(bookedslot,'booked slot')
   
   setBookedSlot(bookedslot)
 };
@@ -126,7 +127,7 @@ export default function DoctorProfileHome() {
         <p className="mb-2">Fees: Rs {doctor.fee}</p>
         <p className="mb-2">Experience: {doctor.experience}Years</p>
         <button className="bg-yellow-500 text-black py-2 px-4 rounded-md ">
-          <Link to="/chat">
+          <Link to="/videoCall">
             <span> Chat with Doctor</span>
           </Link>
         </button>
@@ -179,7 +180,7 @@ export default function DoctorProfileHome() {
         </div>
       )}
       {showDate && selectedSlots.length === 0 && (
-        <p className="font-serif text-xl text-red-500">No slots available on that date.</p>
+        <p className="font-serif text-xl text-blue-500">Select a slot to book</p>
       )}
       {showPayment&&
       <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">

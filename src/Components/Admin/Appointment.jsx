@@ -10,7 +10,7 @@ function Appointments() {
 
    async function getAppointments(){
     try{
-        const response  = await axios.get('/doctor/appointments')
+        const response  = await axios.get('razorpay/appointments/')
         console.log(response.data)
         setAppointments(response.data)
     }catch(error){
@@ -42,7 +42,7 @@ function Appointments() {
             <thead class="bg-gray-50">
             <tr>
                 <th scope="col" class="px-6 py-4 font-large text-gray-900">Doctor Name</th>
-                <th scope="col" class="px-6 py-4 font-large text-gray-900">Patien Name</th>
+                <th scope="col" class="px-6 py-4 font-large text-gray-900">Patient Name</th>
                 <th scope="col" class="px-6 py-4 font-large text-gray-900">Appoinment date</th>
                 <th scope="col" class="px-6 py-4 font-large text-gray-900">Fees</th>
                 <th scope="col" class="px-6 py-4 font-large text-gray-900">Status</th> 
@@ -62,18 +62,18 @@ function Appointments() {
                             }
                             </div>
                             <div class="text-sm">
-                                <div class="font-medium text-gray-700">{appointment.doctor.user.username}</div>
-                                <div class="text-gray-400">{appointment.doctor.specialization.name}</div>
+                                <div class="font-medium text-gray-700">{appointment?.doctor?.user?.username}</div>
+                                <div class="text-gray-400">{appointment?.doctor?.specialization?.name}</div>
                             </div>
                             </th>
                             <td class="px-6 py-4">
-                                <p>{appointment.patient.username}</p>
+                                <p>{appointment?.patient?.username}</p>
                             </td>
                             <td class="px-6 py-4">
-                                <p>{appointment.date}</p>
+                                <p>{new Date(appointment.order_date).toLocaleDateString()}</p>
                             </td>
                             <td class="px-6 py-4">
-                            <p>{<div>{appointment.conulting_fee}Rs</div>}</p>
+                            <p>{<div>{appointment?.doctor?.fee}Rs</div>}</p>
                            </td>
                             <td class="px-6 py-4">
                             {appointment.status.Pending?

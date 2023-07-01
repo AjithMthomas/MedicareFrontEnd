@@ -1,6 +1,8 @@
 import React from 'react';
+import { BASE_URL } from "../../Utils/config";
 
 const ChatSidebar = ({ rooms, activeRoomId, setActiveRoomId }) => {
+  console.log(rooms,'rommms')
   return (
     <div className="flex flex-col bg-gray-200 h-screen w-1/4 border-r-2 border-gray-300">
       <h2 className="text-xl font-bold p-4 bg-gray-700 text-white">Communities</h2>
@@ -15,7 +17,7 @@ const ChatSidebar = ({ rooms, activeRoomId, setActiveRoomId }) => {
           >
             <div className="flex-shrink-0 mr-3 mt-1">
               <img
-                src={room.avatar}
+                src={BASE_URL+room?.image}
                 alt="Room Avatar"
                 className="rounded-full w-12 h-12 object-cover"
               />

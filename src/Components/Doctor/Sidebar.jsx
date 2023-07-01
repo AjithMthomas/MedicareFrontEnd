@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import {
   Card,
   Typography,
@@ -24,11 +24,35 @@ import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Avatar } from "@material-tailwind/react";
 import profile from "../../images/doctorAvatar.jpg"
 import { Link } from "react-router-dom";
+import login,{ getLocal } from '../Contexts/auth'
+import jwt_decode from 'jwt-decode';
+import axios from "axios";
+import { BASE_URL } from "../../Utils/config";
 
  
 export default function Sidebar() {
   const [open, setOpen] = React.useState(0);
- 
+  const [doctor, setDoctor] = useState({});
+  const [doctorId,setID] = useState('')
+
+  async function getDoctor() {
+    try {
+      const response = await axios.get(`/api/getSingleUser/${doctorId}`);
+      setDoctor(response.data);
+      console.log(response.data)
+      console.log(response.data); 
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  useEffect(() => {
+    const localResponse = getLocal('authToken');
+    const decoded = jwt_decode(localResponse);
+    setID(decoded.user_id)
+    console.log(decoded.user_id,'hsf98sfs9')
+    getDoctor();
+  }, []);
+  
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
@@ -36,7 +60,7 @@ export default function Sidebar() {
   return (
     <Card className="fixed top-4 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 rounded-xl" >
       <div className="mb-2 p-4  ">
-      <Avatar src={profile} alt="avatar" size="sm" className="h-[8rem] w-[8rem] ms-16" />
+      <Avatar src={profile}alt="avatar" size="sm" className="h-[8rem] w-[8rem] " />
         <Typography variant="h5" color="blue-gray">
         Doctor Dashboard
         

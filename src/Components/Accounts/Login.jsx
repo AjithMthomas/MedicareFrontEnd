@@ -26,7 +26,7 @@ const LoginPage = () => {
         } else {
           // If the user is a regular user, check if there is a stored location
           const location = localStorage.getItem('location');
-
+          history('/userprofile');
           if (location) {
             // If a location is stored, redirect to that location
             history(location, { replace: true });
