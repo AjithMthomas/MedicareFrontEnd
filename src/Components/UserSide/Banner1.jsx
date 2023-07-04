@@ -6,7 +6,7 @@ import nurse from "../../images/nurse.jpg"
 function BannerFirst() {
   
   return (
-  <div className="bg-cover bg-center h-4/4vh flex" style={{backgroundImage: `url(${home})`}}>
+  <div className="bg-cover bg-center h-4/4vh flex mt-1" style={{backgroundImage: `url(${home})`}}>
     <div className="flex flex-1" >
     <div className="p-20 lg:p-44">
             <h1 className=" text-4xl font-serif font-bold text-start">

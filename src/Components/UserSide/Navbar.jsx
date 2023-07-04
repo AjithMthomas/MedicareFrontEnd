@@ -39,9 +39,9 @@ export default function NavbarComponent() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center  hover:text-blue-500">
+        <Link to='/blogs'><a href="#" className="flex items-center  hover:text-blue-500">
           Blogs
-        </a>
+        </a></Link>
       </Typography>
       <Link to='/chat'><Typography
         as="li"

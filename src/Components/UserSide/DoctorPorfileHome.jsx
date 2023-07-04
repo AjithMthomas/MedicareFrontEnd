@@ -44,7 +44,7 @@ export default function DoctorProfileHome() {
 
   async function getBlogs() {
     try {
-      const response = await axios.get(`/doctor/GetBlogsInHome/${id}`);
+      const response = await axios.get(`/doctor/getDoctorsBlog/${id}`);
       console.log(response.data);
       setBlogs(response.data);
     } catch (e) {
@@ -200,12 +200,12 @@ export default function DoctorProfileHome() {
               />
               <h5 className="text-xl font-bold mb-2">{blog.name}</h5>
               <p className="text-gray-600 mb-2">{blog.description}</p>
-              <a
+              <Link to={`/singleBlogs/${blog.id}`}><a
                 href="/blog/1"
                 className="text-blue-500 hover:underline inline-block"
               >
                 Read More
-              </a>
+              </a></Link>
             </div>
           ))}
         </div>

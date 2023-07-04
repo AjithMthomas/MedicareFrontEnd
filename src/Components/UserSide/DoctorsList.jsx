@@ -20,10 +20,10 @@ export default function DoctorList() {
   
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 3000);
 
     axios
-      .get("http://127.0.0.1:8000/doctor/docorsInUserSide/")
+      .get("/doctor/docorsInUserSide/")
       .then((response) => {
         setDoctors(response.data);
         console.log(response.data);

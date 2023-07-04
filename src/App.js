@@ -29,6 +29,8 @@ import PaymentDetails from './Components/Payment/PaymentDetails';
 import PaymentSuccessPage from './Components/Payment/PaymentSucces';
 import VideoCall from './pages/VideocallPage/VideoCall';
 import UserProfile from './pages/User/UserProfile';
+import Blogs from './pages/User/Blogs';
+import SingleBlog from './pages/User/SingleBlogs'
 
 
 
@@ -48,6 +50,8 @@ function App() {
           <Route path='doctorApproval/' element ={<DoctorApproval/>}/>
           <Route path='doctorProfileInHome/:id' element ={<DoctorProfikeInHome/>}/>
           <Route path='userprofile/' element ={<UserProfile/>}/>
+          <Route path='blogs/' element ={<Blogs/>}/>
+          <Route path='singleBlogs/:id' element ={<SingleBlog/>}/>
 
 
 
@@ -60,15 +64,15 @@ function App() {
              <Route path='createBlog/' element ={<CreateBlog/>}/>,
           ]}/>
      
-     {/* chat */}
-     <Route path='chat/' element ={<ChatGroup/>}/>
+        {/* chat */}
+        <Route path='chat/' element ={<ChatGroup/>}/>
 
-     {/* Videocall */}
-     <Route path='videoCall/' element ={<VideoCall/>}/>
+        {/* Videocall */}
+        <Route path='videoCall/' element ={<VideoCall/>}/>
 
-     {/* Payment */}
-     <Route path='payment/' element ={<PaymentDetails/>}/>
-     <Route path='succes/' element ={<PaymentSuccessPage/>}/>
+        {/* Payment */}
+        <Route path='payment/' element ={<PaymentDetails/>}/>
+        <Route path='succes/' element ={<PaymentSuccessPage/>}/>
 
 
 
