@@ -124,6 +124,20 @@ function MyDoctors({appointment}) {
                    lg:px-4
                    border-r border-transparent
                    ">
+                Status
+                </th>
+                <th className="
+                   w-1/6
+                   min-w-[160px]
+                   text-lg
+                   font-semibold
+                   text-white
+                   py-4
+                   lg:py-7
+                   px-3
+                   lg:px-4
+                   border-r border-transparent
+                   ">
                  Action
                 </th>
               </tr>
@@ -208,6 +222,28 @@ function MyDoctors({appointment}) {
                     {item?.slot?.slot_duration} Minutes
                   </a>
                 </td>
+                <td className={`
+                text-center
+                font-medium
+                text-base
+                py-5
+                px-2
+                bg-white
+                border-b border-r border-[#E8E8E8]
+                ${item.status === 'pending' || item.status === 'rejected' ? 'text-red-500' : 'text-green-500'}
+              `}>
+                <a href="javascript:void(0)" className={`
+                  border border-primary
+                  py-2
+                  px-6
+                  inline-block
+                  rounded
+                  hover:bg-primary hover:text-white
+                  ${item.status === 'pending' || item.status === 'rejected' ? 'text-red-500' : 'text-green-500'}
+                `}>
+                  {item?.status}
+                </a>
+              </td>
                 <td className="
                    text-center text-dark
                    font-medium

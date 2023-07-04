@@ -7,6 +7,7 @@ import {LuHistory} from "react-icons/lu";
 import { BiEdit, BiCategory } from "react-icons/bi";
 import ProfileDetails from './ProfileDetails'
 import MyDoctors from './MyDoctors'
+import Prescriptions from './Prescriptions';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { getLocal } from '../Contexts/auth'
@@ -63,7 +64,7 @@ function UserProfile() {
         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
           <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
         </svg>
-        <span>Connect</span>
+        <span>Menu</span>
       </button>
       {options&&
       <div className="bg-white absolute right-8 w-40  mt-64 border border-gray-200 shadow-2xl" >
@@ -82,10 +83,13 @@ function UserProfile() {
         <HiUsers />
         <span className="text-sm text-gray-700">Appointments</span>
       </button>
-        <button 
-      className="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
+        <button  onClick={()=>{
+            localStorage.setItem('component','prescriptions')
+            setOptions(false)
+        }}
+        className="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
         <TbBrandBooking />
-        <span className="text-sm text-gray-700">Slots</span>
+        <span className="text-sm text-gray-700">Prescriptions</span>
       </button>
         <button className="w-full flex items-center py-1.5 px-6 space-x-2 hover:bg-gray-200">
          <LuHistory />
@@ -105,6 +109,7 @@ function UserProfile() {
   </div>
     {localStorage.getItem('component')==='profiledetails' ? < ProfileDetails user={user}/>:''}
     {localStorage.getItem('component')==='myAppointments' ? <MyDoctors appointment={appointments}/>:''}
+    {localStorage.getItem('component')==='prescriptions' ? <Prescriptions />:''}
   </div>
 </>
   )

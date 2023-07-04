@@ -59,13 +59,13 @@ import {
           formData.append("is_approved", is_approved);
           formData.append("user",user);
       
-          // Submit the form data to the server
+         
           const response = await axios.post("/doctor/createDoctors/", formData);
       
           if (response.status === 201) {
             toast.success('Doctor request sent successfully,check email');
           } else {
-            // Error!
+        
             toast.error('Error creating doctor');
           }
         } catch (error) {

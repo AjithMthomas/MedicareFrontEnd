@@ -5,6 +5,8 @@ import { BASE_URL } from "../../Utils/config";
 import doctorImg from "../../images/doctorAvatar.jpg";
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import PaymentDetails from "../Payment/PaymentDetails";
+import Background from "../../images/breadcumb.jpg"
+import Bg from "../../images/4880206.jpg"
 
 export default function DoctorProfileHome() {
   const [doctor, setDoctor] = useState({});
@@ -42,17 +44,39 @@ export default function DoctorProfileHome() {
     }
   }
 
+  // async function getBlogs() {
+  //   try {
+  //     const response = await axios.get(`/doctor/getDoctorsBlog/${id}`);
+  //     console.log(response.data);
+  //     setBlogs(response.data);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
+
   async function getBlogs() {
     try {
-      const response = await axios.get(`/doctor/getDoctorsBlog/${id}`);
-      console.log(response.data);
-      setBlogs(response.data);
+      const response = await axios.get("/doctor/blogsList/");
+      console.log(response.data);     
+      const shuffledBlogs = response.data.sort(() => 0.5 - Math.random());
+        const randomBlogs = shuffledBlogs.slice(0, 3);
+        setBlogs(randomBlogs);
     } catch (e) {
       console.log(e);
     }
   }
 
-  
+
+
+
+  const truncateText = (text, limit) => {
+    if (text.length <= limit) {
+      return text;
+    }
+    return text.slice(0, limit) + "...";
+  };
+
+
 
   const handleChange = async (e) => {
    
@@ -92,15 +116,20 @@ export default function DoctorProfileHome() {
 
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-8 ">
-      <h2 className="text-2xl font-bold mb-4">Doctor's Profile</h2>
-      <div className="flex items-center mb-4">
+    <div className="bg-white rounded-lg shadow-md p-8 "style={{ backgroundImage: `url(${Bg})`}}>
+     <div  className="h-20 flex justify-center items-center">
+        <h2 className="text-3xl font-bold text-black">Doctor's Profile</h2>
+      </div>
+      <div className="w-full flex  place-content-center justify-items-center bg-gray-150 " >
+      <div className="flex flex-col place-content-center justify-items-center mb-4 mt-5">
         {doctor?.user?.image ? (
+          <div className="w-full flex place-content-center justify-items-center">
           <img
             src={BASE_URL + doctor?.user.image}
             alt="Profile Picture"
-            className="w-20 h-20 rounded-full mr-4"
+            className="w-80 h-72 rounded-full mr-4  "
           />
+          </div>
         ) : (
           <img
             src={doctorImg}
@@ -119,7 +148,7 @@ export default function DoctorProfileHome() {
         </div>
       </div>
 
-      <div>
+      <div className="ms-20 mt-9">
         <p className="mb-2">
           Phone Number: {doctor.user && doctor.user.phone_number}
         </p>
@@ -150,6 +179,13 @@ export default function DoctorProfileHome() {
             />
           </div>
         )}
+          {showDate && selectedSlots.length === 0 && (
+        <p className="font-serif text-xl text-blue-500">Select a Valid slot to book</p>
+      )}
+      </div>
+   
+     
+
       </div>
    
 
@@ -179,9 +215,7 @@ export default function DoctorProfileHome() {
           
         </div>
       )}
-      {showDate && selectedSlots.length === 0 && (
-        <p className="font-serif text-xl text-blue-500">Select a slot to book</p>
-      )}
+    
       {showPayment&&
       <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
         <PaymentDetails doctor={doctor} bookedSlot={bookedSlot}/>
@@ -194,12 +228,12 @@ export default function DoctorProfileHome() {
           {blogs?.map((blog) => (
             <div className="bg-white rounded-md shadow-md p-4" key={blog.id}>
               <img
-                src={BASE_URL + blog?.image}
+                src={ blog?.image}
                 alt="Blog Thumbnail"
                 className="w-full h-32 object-cover mb-4 rounded-md"
               />
               <h5 className="text-xl font-bold mb-2">{blog.name}</h5>
-              <p className="text-gray-600 mb-2">{blog.description}</p>
+              <p className="text-gray-600 mb-2">{truncateText(blog?.description, 300)}</p>
               <Link to={`/singleBlogs/${blog.id}`}><a
                 href="/blog/1"
                 className="text-blue-500 hover:underline inline-block"
