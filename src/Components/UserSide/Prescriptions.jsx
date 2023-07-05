@@ -5,6 +5,8 @@ import jwtDecode from 'jwt-decode';
 import { getLocal } from '../Contexts/auth';
 import { BASE_URL } from '../../Utils/config';
 import { Button } from "@material-tailwind/react";
+import PrescriptionDetails from './PrescriptionDetails';
+
 
 function formatPrescriptionDate(date) {
   const options = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -14,36 +16,31 @@ function formatPrescriptionDate(date) {
 function Prescriptions() {
   const [prescriptions, setPrescriptions] = useState([]);
   const [showPrescription,setShowPrescription] = useState(false)
-
+  
   useEffect(() => {
     const localResponse = getLocal('authToken');
     const decoded = jwtDecode(localResponse);
     const id = decoded.user_id;
 
-    const handleDownload = async()=>{
+    async function getPrescriptions() {
       try {
-        const response = await axios.get(`/razorpay/usersPrescription/${id}`,{
-            responseType: 'blob'});
+        const response = await axios.get(`/razorpay/usersPrescription/${id}`);
         setPrescriptions(response.data);
-        const fileName = `Prescription_${prescriptions.id}.pdf`;
-        const blob = new Blob([response.data], { type: 'application/pdf' });
-        saveAs(blob, fileName);
-
-        
       } catch (e) {
         console.log(e);
       }
     }
 
-    handleDownload();
+    getPrescriptions();
   }, []);
 
   return (
-    <div className="antialiased px-4 mt-5 mx-20 mb-14">
+    <div className="antialiased mb-16 px-4 mt-5 mx-5">
+      
       <div className="flex flex-col justify-center">
         <div className="w-full bg-white shadow-lg rounded-sm border border-gray-200">
           <header className="px-5 py-4 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-800">Prescriptions</h2>
+            <h2 className="font-semibold text-gray-800">Prescription</h2>
           </header>
           <div className="p-3">
             <div className="overflow-x-auto">
@@ -71,7 +68,7 @@ function Prescriptions() {
                   {prescriptions?.map((prescription) => (
                     <tr key={prescription.id}>
                       <td className="p-2 whitespace-nowrap">
-                        <div className="flex items-center ms-5">
+                        <div className="flex items-center">
                           <div>
                             <img
                               className="rounded-full b border-2 border-blue-300 w-28 h-28"
@@ -96,43 +93,17 @@ function Prescriptions() {
                       </td>
                       <td className="p-2 whitespace-nowrap">
                         <div className="text-lg text-center"><Button variant="outlined" onClick={()=>setShowPrescription(true)}>Prescription</Button></div>
+                        {showPrescription &&
+                    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+                      <PrescriptionDetails prescription={prescription} setShowPrescription={setShowPrescription}/>
+                    </div>}
                       </td>
+                     
                     </tr>
+                    
                   ))}
                 </tbody>
               </table>
-              {showPrescription &&
-                <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-                <div className="w-2/5 bg-gray-200 p-8 rounded-lg">
-                <h2 className="text-2xl font-bold mb-4">Prescription Details</h2>
-                <div className="mb-4">
-                    <label className="text-lg font-medium">Doctor Name:</label>
-                    <p></p>
-                </div>
-                <div className="mb-4">
-                    <label className="text-lg font-medium">Patient Name:</label>
-                    <p></p>
-                </div>
-                <div className="mb-4">
-                    <label className="text-lg font-medium">Medication:</label>
-                    <p></p>
-                </div>
-                <div className="mb-4">
-                    <label className="text-lg font-medium">Dosage:</label>
-                    <p></p>
-                </div>
-                <div className="mb-4">
-                    <label className="text-lg font-medium">Instructions:</label>
-                    <p></p>
-                </div>
-                <button
-                    
-                    className="bg-yellow-500 text-black px-4 py-2 rounded-md hover:bg-primary-dark font-sans"
-                >
-                    Download Prescription
-                </button>
-                </div>
-                </div>}
             </div>
           </div>
         </div>

@@ -31,6 +31,8 @@ import VideoCall from './pages/VideocallPage/VideoCall';
 import UserProfile from './pages/User/UserProfile';
 import Blogs from './pages/User/Blogs';
 import SingleBlog from './pages/User/SingleBlogs'
+import DoctorProfile from './Components/Doctor/DoctorPofile';
+import Room from "./screens/Room"
 
 
 
@@ -62,6 +64,7 @@ function App() {
              <Route path='shedule/' element ={<CreateSlotForm/>}/>,
              <Route path='appointment/' element ={<Appointment/>}/>,
              <Route path='createBlog/' element ={<CreateBlog/>}/>,
+             <Route path='profile/' element ={<DoctorProfile/>}/>,
           ]}/>
      
         {/* chat */}
@@ -69,6 +72,7 @@ function App() {
 
         {/* Videocall */}
         <Route path='videoCall/' element ={<VideoCall/>}/>
+        <Route path="/room/:doctor_id" element={ <Room/> }/>
 
         {/* Payment */}
         <Route path='payment/' element ={<PaymentDetails/>}/>

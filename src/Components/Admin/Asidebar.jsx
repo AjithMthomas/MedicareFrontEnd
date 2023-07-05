@@ -22,11 +22,18 @@ import {
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Avatar } from "@material-tailwind/react"; 
 import admin from "../../images/admin.jpg"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
  
 export default function AdiminSidebar() {
   const [open, setOpen] = React.useState(0);
  
+  const history = useNavigate()
+
+  const handleclick=()=>{
+    localStorage.removeItem('authToken');
+    history('/login')
+  }
+
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
@@ -128,7 +135,7 @@ export default function AdiminSidebar() {
           </ListItemPrefix>
          Department
         </ListItem></Link>
-        <ListItem>
+        <ListItem onClick={()=>handleclick()}>
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />
           </ListItemPrefix>

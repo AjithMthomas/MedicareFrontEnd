@@ -6,7 +6,7 @@ import {
   Button,
   IconButton,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Toaster } from 'react-hot-toast';
 import { getLocal } from '../Contexts/auth'
 
@@ -16,6 +16,13 @@ export default function NavbarComponent() {
 
 
   const localResponse = getLocal('authToken');
+
+  const history = useNavigate()
+
+  const handleclick=()=>{
+    localStorage.removeItem('authToken');
+    history('/login')
+  }
 
   useEffect(() => {
     window.addEventListener("resize", () => window.innerWidth >= 960 && setOpenNav(false));
@@ -79,14 +86,16 @@ export default function NavbarComponent() {
           MEDIcare
         </Typography></Link> 
         <div className="hidden lg:block">{navList}</div>
-        <div className="">
+        <div className="flex gap-3 place-content-end">
         <Link to="/login"><Button variant="gradient" size="sm" className="hidden lg:inline-block  hover:bg-blue-500">
           {localResponse?(<span className=" text-black ">Dashboard</span>):
           (<span className=" text-black ">Login</span>)}
         </Button></Link>
-        {localResponse&&<Link to="/userprofile"><Button variant="gradient" size="sm" className=" ms-2 hidden lg:inline-block  hover:bg-blue-500" onClick={()=>localStorage.setItem('component','profiledetails')}>
-          <span className=" text-black ">profile</span>
-        </Button></Link>}
+        {localResponse &&
+        <Button variant="gradient" size="sm" className=" text-black hover:bg-blue-500 "onClick={()=>handleclick()}>
+          Logout
+        </Button>
+        }
         </div>
         <IconButton
           variant="text"
@@ -129,6 +138,7 @@ export default function NavbarComponent() {
       <MobileNav open={openNav}>
         <div className="container mx-auto ">
           {navList}
+          
           <Link to="/login"><Button variant="gradient" size="sm" fullWidth className="mb-2  ">
             <span className=" text-black ">Login</span>
           </Button></Link>

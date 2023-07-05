@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import avatar from "../../images/doctorAvatar.jpg";
 import jwtDecode from 'jwt-decode';
@@ -6,7 +6,11 @@ import { getLocal } from '../Contexts/auth';
 import { BASE_URL } from '../../Utils/config';
 import { Button } from "@material-tailwind/react";
 import PrescriptionForm from './Prescription';
+import { FaVideo } from 'react-icons/fa'
 import { toast,Toaster } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom';
+import { useSocket } from '../SocketContext/SocketProvider';
+
 
 
 function Appointments() {
@@ -15,10 +19,33 @@ function Appointments() {
   const [selectedAppointment,setSelected] = useState({})
   const [showPrescription,setPrescription] = useState(false)
 
+  const socket = useSocket()
+  console.log(socket,'sodsdfsdf')
+
+  const Email = 'doctor@gmail.com'
+  const navigate = useNavigate()
+
+  const handleSubmitForm = useCallback(() => {
+    console.log('hj')
+    // e.preventDefault()
+    socket.emit("room:join", { Email, doctor })
+
+  }, [Email, doctor, socket])
+
+ 
+
+  const handleJoinRoom = useCallback((data) => {
+    const { Email, doctor } = data
+    navigate(`/room/${doctor}`)
+  }, [navigate])
+
+ 
+
+
   useEffect(() => {
     const localResponse = getLocal('authToken');
     const response = jwtDecode(localResponse);
-
+    
     setDoctor(response?.user_id);
   }, []);
 
@@ -40,6 +67,14 @@ function Appointments() {
     }
   }, [doctor]);
 
+  useEffect(() => {
+    socket.on("room:join", handleJoinRoom)
+    return () => {
+      socket.off("room:join", handleJoinRoom)
+    }
+   },[socket])
+
+
   async function updateAppointmentStatus(appointmentId, newStatus) {
     try {
       await axios.put(`razorpay/updateAppointmentStatus/${appointmentId}/`, { status: newStatus });
@@ -54,9 +89,6 @@ function Appointments() {
     const selectedAppointment = appointments?.find(appointment => appointment.id === id)
     console.log(selectedAppointment,'selected')
     setSelected(selectedAppointment)
-
-
-
   }
 
   return (
@@ -147,7 +179,11 @@ function Appointments() {
                         </>
                       ) : (<>
                         {appointment.status === 'approved' ?
-                        <Button color="blue" onClick={()=>handleClick(appointment.id)}>Prescription</Button>:
+                        <div className='flex'>
+                        <Button color="blue" onClick={()=>handleClick(appointment.id)}>Prescription</Button>
+                        <FaVideo className="mx-auto w-6 h-6 mt-2" onClick={()=>handleSubmitForm()}/>
+                        </div>
+                        :
                         <p className="text-red-500 font-bold text-sm mt-4">Rejected appointment</p>
                       }</>
                       )}

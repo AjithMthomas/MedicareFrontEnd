@@ -1,29 +1,34 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { BASE_URL } from "../../Utils/config";
 import { FaVideo } from 'react-icons/fa'
-import { isAfter } from 'date-fns';
-import { Link } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
+import { useSocket } from '../SocketContext/SocketProvider';
+import VideocallModal from './VideocallModal';
+
+
 
 function MyDoctors({appointment}) {
-  console.log(appointment,'dfsdjajfds')
-  const navigate = useNavigate()
+
+  const [doctor,setDoctor] = useState('')
+  const [show,setShow] = useState(false)
+
+
   const currentTime = new Date();
   const currentHourAndMinute = `${currentTime.getHours()}:${currentTime.getMinutes() < 10 ? '0' : ''}${currentTime.getMinutes()}`
-  const expireHandle = (end_time) => {
+ 
+  function handleClick(id){
+    setDoctor(id)
+    setShow(true)
+  }
 
-    // Split the time string into hours, minutes, and seconds
-    const [hours, minutes, seconds] = end_time?.split(':');
-    
-    // Create a new Date object with the current date and the desired time
-    const EndDate = new Date();
-    EndDate.setHours(hours);
-    EndDate.setMinutes(minutes);
-    EndDate.setSeconds(seconds);
-    return isAfter(EndDate, new Date())
-  }
+  
   return (
 <div>
+  {show && 
+  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+  <VideocallModal doctor={doctor} setShow={setShow}/> 
+  </div>
+  }
   <div className="container mt-3">
     <div className="flex flex-wrap -mx-4">
       <div className="w-full px-4">
@@ -138,12 +143,12 @@ function MyDoctors({appointment}) {
                    lg:px-4
                    border-r border-transparent
                    ">
-                 Action
+                Call
                 </th>
               </tr>
             </thead>
             <tbody>
-              {appointment.length!==0&& appointment.map((item)=>{
+              {appointment?.length!==0&& appointment?.map((item)=>{
               return (
                 <tr>
                 <td className="
@@ -253,12 +258,16 @@ function MyDoctors({appointment}) {
                    bg-[#F3F6FF]
                    border-b border-[#E8E8E8]
                    ">
-                    {/* {expireHandle(item?.slot?.end_time) ?<div onClick={()=>{
-                      navigate('/videoCall/')
-                    }}><FaVideo className="mx-auto w-8 h-8"/></div>: <p>Time Over</p>} */}
-                    {(item.slot.start_time.slice(0,5)<=currentHourAndMinute && item.slot.end_time.slice(0,5)>=currentHourAndMinute) ? <div onClick={()=>{
-                      navigate('/videoCall/')
-                    }}><FaVideo className="mx-auto w-8 h-8"/></div>: <p>not yet</p> }
+            
+                    {(item?.slot?.start_time.slice(0,5)<=currentHourAndMinute && item?.slot?.end_time.slice(0,5)>=currentHourAndMinute) ? <div 
+                      
+                    //  handleSubmitForm(item?.slot?.doctor?.id)
+                    
+                    ><FaVideo onClick={()=>{
+                      const id = item?.slot?.doctor?.id
+                      handleClick(id)
+  
+                    }}  className="mx-auto w-8 h-8"/></div>: <><p>not yet</p></> }
                  
                 </td>
               </tr>

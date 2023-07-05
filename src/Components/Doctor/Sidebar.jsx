@@ -23,7 +23,7 @@ import {
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { Avatar } from "@material-tailwind/react";
 import profile from "../../images/doctorAvatar.jpg"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import login,{ getLocal } from '../Contexts/auth'
 import jwt_decode from 'jwt-decode';
 import axios from "axios";
@@ -32,26 +32,40 @@ import { BASE_URL } from "../../Utils/config";
  
 export default function Sidebar() {
   const [open, setOpen] = React.useState(0);
-  const [doctor, setDoctor] = useState({});
-  const [doctorId,setID] = useState('')
 
-  async function getDoctor() {
-    try {
-      const response = await axios.get(`/api/getSingleUser/${doctorId}`);
-      setDoctor(response.data);
-      console.log(response.data)
-      console.log(response.data); 
-    } catch (e) {
-      console.log(e);
-    }
+  const [doctor,setDoctor] = useState('')
+  const [docDetails,setDocDetails] = useState({})
+   
+
+  
+
+  const history = useNavigate()
+
+  const handleclick=()=>{
+    localStorage.removeItem('authToken');
+    history('/login')
   }
-  useEffect(() => {
-    const localResponse = getLocal('authToken');
-    const decoded = jwt_decode(localResponse);
-    setID(decoded.user_id)
-    console.log(decoded.user_id,'hsf98sfs9')
-    getDoctor();
-  }, []);
+ 
+      async function getDoctorDetails() {
+        try {
+          const response = await axios.get(`doctor/getSingleDocter/${doctor}`);
+          setDocDetails(response.data);
+        } catch (error) {
+          console.error('could not fetch data', error);
+        }
+      }
+      useEffect(() => {
+        const localResponse = getLocal('authToken');
+        const response = jwt_decode(localResponse);
+        setDoctor(response?.user_id,'id');
+       
+      }, []);
+
+      useEffect(() => {
+        if (doctor) {
+          getDoctorDetails();
+        }
+      }, [doctor]);
   
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
@@ -60,9 +74,9 @@ export default function Sidebar() {
   return (
     <Card className="fixed top-4 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 rounded-xl" >
       <div className="mb-2 p-4  ">
-      <Avatar src={profile}alt="avatar" size="sm" className="h-[8rem] w-[8rem] " />
+      <Avatar src={BASE_URL+docDetails?.user?.image}alt="avatar" size="sm" className="h-[8rem] w-[8rem] rounded-full " />
         <Typography variant="h5" color="blue-gray">
-        Doctor Dashboard
+       Dr. {docDetails?.user?.username}
         
         </Typography>
       </div>
@@ -106,12 +120,12 @@ export default function Sidebar() {
         </Accordion>
         <hr className="my-2 border-blue-gray-50" />
         
-        <ListItem>
+       <Link to='profile/'> <ListItem>
           <ListItemPrefix>
             <UserCircleIcon className="h-5 w-5" />
           </ListItemPrefix>
           Profile
-        </ListItem>
+        </ListItem></Link>
         <ListItem>
           <ListItemPrefix>
             <InboxIcon className="h-5 w-5" />
@@ -128,7 +142,7 @@ export default function Sidebar() {
           </ListItemPrefix>
          Create blog
         </ListItem></Link>
-        <ListItem>
+        <ListItem onClick={()=>handleclick()}>
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />
           </ListItemPrefix>
