@@ -77,7 +77,7 @@ export default function NavbarComponent() {
     <>
     <Navbar className="sticky bg-nav  lg:px-8 lg:py-4  top-0 z-50 ">
       <Toaster position='top-center' reverseOrder='false' limit={1} ></Toaster>
-        <div className="bg-nav container  flex items-center justify-between text-blue-gray-900 text-black">
+        <div className="bg-nav  mx-auto  flex items-center justify-between text-blue-gray-900 text-black">
       <Link to='/'> <Typography
           as="a"
           href="#"
@@ -86,16 +86,21 @@ export default function NavbarComponent() {
           MEDIcare
         </Typography></Link> 
         <div className="hidden lg:block">{navList}</div>
-        <div className="flex gap-3 place-content-end">
+        <div className="flex gap-3 justify-end">
         <Link to="/login"><Button variant="gradient" size="sm" className="hidden lg:inline-block  hover:bg-blue-500">
           {localResponse?(<span className=" text-black ">Dashboard</span>):
           (<span className=" text-black ">Login</span>)}
         </Button></Link>
         {localResponse &&
+        <>
         <Button variant="gradient" size="sm" className=" text-black hover:bg-blue-500 "onClick={()=>handleclick()}>
           Logout
         </Button>
+        <Link to="/userprofile"><Button variant="gradient" size="sm" className=" text-black hover:bg-blue-500 ">
+        Profile
+      </Button></Link></>
         }
+         
         </div>
         <IconButton
           variant="text"
@@ -118,7 +123,7 @@ export default function NavbarComponent() {
                 d="M6 18L18 6M6 6l12 12"
               />
             </svg>
-          ) : (
+          ) : (-
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"

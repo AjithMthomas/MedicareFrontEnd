@@ -146,16 +146,16 @@ function DocorsRequest() {
            
             <tbody class="divide-y divide-gray-100 border-t border-gray-100">
              {doctors?.map((doctor)=>(
-                            <tr class="hover:bg-gray-50" key={doctor.id}>
+                            <tr class="hover:bg-gray-50" key={doctor?.id}>
                             <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
                             
                             <div class="text-sm">
                                 <div class="font-medium text-gray-700"></div>
-                                <div class="text-gray-400">{doctor.user.username}</div>
+                                <div class="text-gray-400">{doctor?.user?.username}</div>
                             </div>
                             </th>
                             <td class="px-6 py-4">
-                                <p>{doctor.specialization.name}</p>
+                                <p>{doctor?.specialization?.name}</p>
                             </td>
                             <td class="px-6 py-4">
                              
@@ -166,7 +166,7 @@ function DocorsRequest() {
                             </td>
 
                             <td class="px-6 py-4">
-                         <div className="flex" onClick={()=>getDoctor(doctor.id)}>
+                         <div className="flex" onClick={()=>getDoctor(doctor?.id)}>
                                 <label class="inline-flex relative items-center mr-5 cursor-pointer">
                                     <input
                                         type="checkbox"
@@ -175,7 +175,7 @@ function DocorsRequest() {
                                         readOnly
                                     />
                                     <div
-                                        onClick="{(()=>changeStatus(doctor.id))}"
+                                        
                                        
                                     > <FaEye/></div>
                                   

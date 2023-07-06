@@ -85,7 +85,7 @@ export default function Blog() {
                     Learn More
                     <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
                   </Button>
-                  <Rating value={4} readonly className="text-yellow-400 font-serif" />
+                
                 </div>
               </a></Link>
             </CardBody>

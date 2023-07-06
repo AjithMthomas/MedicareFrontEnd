@@ -56,8 +56,8 @@ const AdminDashboard = () => {
   });
 
   return (
-    <div id="chart" className="mt-5" >
-<h1 className="font-serif text-2xl text-start underline">Appointment graph</h1>
+    <div id="chart" className="mt-5 w-full" >
+    <h1 className="font-serif text-2xl text-start underline">Appointment graph</h1>
       <Chart options={options} series={series} type="bar" height={350}  className="w-3/4"/>
     </div>
   );

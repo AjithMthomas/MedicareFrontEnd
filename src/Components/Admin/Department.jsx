@@ -1,84 +1,127 @@
-import React,{useState,useEffect} from 'react'
-import axios from 'axios'
-import { AiFillEdit } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
-import { Button } from "@material-tailwind/react";
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { AiFillEdit } from 'react-icons/ai';
+import { RxSwitch } from 'react-icons/rx';
+import { Link } from 'react-router-dom';
+import { Button } from '@material-tailwind/react';
+import { toast,Toaster,} from "react-hot-toast";
 
 function Department() {
-    const [departments,setDepartments] = useState([])
-    
-    async function getDeparments(){
-        try{
-            const response = await axios.get('/doctor/departments')
-            setDepartments(response.data)
-        }catch(error){
-            console.log('could not fetch data',error)
-        }
-    }
+  const [departments, setDepartments] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredDepartments, setFilteredDepartments] = useState([]);
 
-    useEffect(()=>{
-        getDeparments()
-    },[])
-  
+  async function getDepartments() {
+    try {
+      const response = await axios.get('/doctor/departments');
+      setDepartments(response.data);
+    } catch (error) {
+      console.log('Could not fetch data', error);
+    }
+  }
+
+  useEffect(() => {
+    getDepartments();
+  }, []);
+
+  useEffect(() => {
+    if (searchQuery === '') {
+      setFilteredDepartments(departments);
+    } else {
+      const filtered = departments.filter((department) =>
+        department?.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredDepartments(filtered);
+    }
+  }, [searchQuery, departments]);
+
+
+
+
   return (
-    <div className='flex h-full bg-acontent mt-3 w-full '>
-      <div className='px-5 w-full h-auto min-h-screen mx-5 mt-2  py-8 font-poppins flex flex-col place-content-start place-items-center bg-white shadow-xl rounded-xl'>
-        <div className='w-full h-screen px-3 font-poppins'>
-        <h1 className='font-serif  text-3xl text-start  underline ms-4'>Appointments</h1>  
-        <div className="w-full p-5 flex justify-end ">
-        <Link to="/AdminDashboard/addDepartment"><Button variant="outlined " className='py-4  text-grayh border border-blue-300'>Add Department</Button></Link> 
-       
-    <input
-        type="text"
-        placeholder='&#x1F50D; Search email or name'
-        className="border  border-blue-300 border-solid focus:outline-none px-2 w-1/5 rounded-lg ml-3 "
-    />
+    <div className="flex h-full bg-acontent mt-3 w-full">
+    <Toaster position='top-center' reverseOrder='false'  ></Toaster>
+      <div className="px-5 w-full h-auto min-h-screen mx-5 mt-2  py-8 font-poppins flex flex-col place-content-start place-items-center bg-white shadow-xl rounded-xl">
+        <div className="w-full h-screen px-3 font-poppins">
+          <h1 className="font-serif  text-3xl text-start ms-4">Appointments</h1>
+          <div className="w-full  flex justify-between mt-4">
+            <Link to="/AdminDashboard/addDepartment">
+              <Button variant="outlined" className="py-4  text-grayh border border-blue-300 ms-10">
+                Add Department
+              </Button>
+            </Link>
+
+            <input
+              type="text"
+              placeholder="&#x1F50D; Search email or name"
+              className="border  border-blue-300 border-solid focus:outline-none px-2 w-1/5 rounded-lg ml-3 me-10"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <div className="overflow-hidden rounded-lg border shadow-lg mt-2 max-w-[950px] mx-auto ">
+            <table className="w-full border-collapse bg-white text-left text-sm text-gray-500 ">
+              <thead className="">
+                <tr>
+                  <th scope="col" className="px-6 py-4 font-large text-gray-900">
+                   
+                  </th>
+                  <th scope="col" className="px-6 py-4 font-large text-gray-900 "
+                  >
+                   
+                  </th>
+                 
+                  <th scope="col" className="px-6 py-4 font-large text-gray-900 "
+                  >
+                   
+                  </th>
+                  
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 border-t border-gray-100">
+                {filteredDepartments?.length > 0 ? (
+                  filteredDepartments.map((department, index) => (
+                    <tr className="hover:bg-gray-50" key={index}>
+                      <td className="gap-3 px-6 py-4 font-normal text-gray-900">
+                        <div className= "flex relative items-center h-14 w-14">
+                          <img
+                            className="h-full w-full rounded-full "
+                            src={department?.image}
+                            alt="avatar"
+                          />
+                         
+                        </div>
+                       
+                      </td>
+                      <td className=" px-6 py-4  ">
+                      <div className="font-medium text-gray-700 flex justify-center ">{department?.name}</div>
+                      </td>
+                     
+                      <td className=" px-6 py-4  flex justify-center">
+                        <div className="flex ms-10">
+                        <Button color="green"><span className='flex'> Edit  <AiFillEdit className='w-4 h-4 ms-3'/></span></Button>
+                        <Button color="red" className='ms-3' ><span className='flex '>List  <RxSwitch className='w-4 h-4 ms-3 '/></span></Button>
+                       </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan="4"
+                      className="px-6 py-4 text-center text-red-500 font-bold"
+                    >
+                      No related departments found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
-        <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
-            <thead class="bg-gray-50">
-            <tr>
-                <th scope="col" class="px-6 py-4 font-large text-gray-900">Category Name</th>
-                <th scope="col" class="px-6 py-4 font-large text-gray-900">Doctors</th>
-                <th scope="col" class="px-6 py-4 font-large text-gray-900">Active Doctors</th>
-                <th scope="col" class="px-6 py-4 font-large text-gray-900">Edit</th>
-       
-            </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {departments?.map((department,index)=>
-                            <tr class="hover:bg-gray-50" key={index}>
-                            <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
-                            <div class="relative h-10 w-10">
-                                <img class="h-full w-full rounded-full object-cover object-center" src={department.image}
-                                alt="avatar"/>
-                           
-                            </div>
-                            <div class="text-sm">
-                                <div class="font-medium text-gray-700">{department.name}</div>
-                                
-                            </div>
-                            </th>
-                            <td class="px-6 py-4">
-                                <p>count</p>
-                            </td>
-                            <td class="px-6 py-4">
-                                <p>count</p>
-                            </td>
-                            <td class="px-6 py-4">
-                          <AiFillEdit/>
-                           </td>
-                          
-                        </tr>
-                       )}
-            </tbody>
-        </table>
-        </div>
+      </div>
     </div>
-    </div>
-    </div>
-  )
+  );
 }
 
-export default Department
+export default Department;

@@ -47,7 +47,7 @@ export default function CreateBlog() {
   return (
     <Card color="transparent" shadow={false} className="ml-3 mt-3">
       <Toaster position="top-center" reverseOrder={false} limit={1} />
-      <Typography variant="h4" color="blue-gray" className="font-serif mt-3 text-start underline">
+      <Typography variant="h4" color="blue-gray" className="font-serif mt-3 text-start ">
         Add blog
       </Typography>
 
@@ -68,13 +68,13 @@ export default function CreateBlog() {
             label="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-blue-500"
+            className="border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-blue-500 mt-3"
           />
           <input
             type="file"
             onChange={handleImageChange}
             accept="image/*"
-            className="focus:outline-none"
+            className="focus:outline-none mt-5"
           />
           <button
             type="submit"

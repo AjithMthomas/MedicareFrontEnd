@@ -11,17 +11,20 @@ import PaymentPage from "./Payment";
 import { BASE_URL } from "../../Utils/config";
 import { Rating } from "@material-tailwind/react";
 import { format } from 'date-fns';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 export default function PaymentDetails(props) {
-  const { doctor, bookedSlot } = props;
+  const { doctor, bookedSlot,setShowPayment } = props;
   console.log(bookedSlot[0].id,'bopkedsfjosidfj')
 
   const start_time = format(new Date(`2000-01-01T${bookedSlot[0].start_time}`), 'h:mm a');
   const end_time = format(new Date(`2000-01-01T${bookedSlot[0].end_time}`), 'h:mm a');
 
   return (
-    <Card className="w-96 mt-10 mx-auto shadow-lg rounded-lg overflow-hidden">
+    <Card className="w-96 mt-10 mx-auto shadow-lg rounded-lg overflow-hidden  bg-gray-50">
+      
       <CardHeader className="bg-indigo-500">
+      <AiOutlineCloseCircle onClick={() => setShowPayment(false)} className="text-white w-5 h-5 ml-auto mt-2 me-2" />
         <img
           src={BASE_URL + doctor?.user.image}
           alt="profile-picture"

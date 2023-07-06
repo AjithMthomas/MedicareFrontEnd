@@ -148,18 +148,18 @@ export default function DoctorProfileHome() {
         </div>
       </div>
 
-      <div className="ms-20 mt-9">
+      <div className="ms-20 mt-14">
         <p className="mb-2">
           Phone Number: {doctor.user && doctor.user.phone_number}
         </p>
         <p className="mb-2">Email: {doctor.user && doctor.user.email}</p>
         <p className="mb-2">Fees: Rs {doctor.fee}</p>
         <p className="mb-2">Experience: {doctor.experience}Years</p>
-        <button className="bg-yellow-500 text-black py-2 px-4 rounded-md ">
+        {/* <button className="bg-yellow-500 text-black py-2 px-4 rounded-md ">
           <Link to="/videoCall">
             <span> Chat with Doctor</span>
           </Link>
-        </button>
+        </button> */}
         {!showDate ? (
           <button
             className="bg-blue-500 text-white py-2 px-4 rounded-md ms-1 mt-2"
@@ -218,7 +218,7 @@ export default function DoctorProfileHome() {
     
       {showPayment&&
       <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-        <PaymentDetails doctor={doctor} bookedSlot={bookedSlot}/>
+        <PaymentDetails doctor={doctor} bookedSlot={bookedSlot} setShowPayment={setShowPayment}/>
       </div>
    
       }
