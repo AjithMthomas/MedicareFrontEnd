@@ -163,7 +163,7 @@ function Room() {
             )}
         </div>
 
-        <div className=' h-44 md:h-[25rem] w-60 md:w-[30px] rounded-lg'>
+        <div className=' h-44 md:h-[25rem] w-60 md:w-[630px] rounded-lg'>
         {RemoteStream && (
             <>
             <h1 className='text-center text-xl font-medium mb-1 text-white'>Doctor</h1>
