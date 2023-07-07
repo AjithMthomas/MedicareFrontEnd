@@ -190,7 +190,7 @@ export default function DoctorProfileHome() {
    
 
       {showDate && selectedSlots?.length > 0 && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 mt-3">
           <div className="bg-white rounded-lg p-6  ">
             <div className="flex place-content-end ">
             <AiOutlineCloseCircle className="text-end text-gray-500" onClick={()=>{setShowDate(false);setSelectedSlots([]);setDate('')}}/>

@@ -134,7 +134,14 @@ export default function Sidebar() {
           <ListItemSuffix>
           </ListItemSuffix>
         </ListItem></Link>
-       
+        <Link to='/'><ListItem >
+              <ListItemPrefix>
+                <PresentationChartBarIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              <Typography color="blue-gray" className="mr-auto font-normal">
+                Home
+              </Typography>
+          </ListItem></Link>
        <Link to='createBlog/'> <ListItem>
           <ListItemPrefix>
             <Cog6ToothIcon className="h-5 w-5" />

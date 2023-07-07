@@ -88,8 +88,12 @@ useEffect(()=>{
   
 
     var options = {
-      key_id: process.env.REACT_APP_PUBLIC_KEY, 
-      key_secret: process.env.REACT_APP_SECRET_KEY,
+      // key_id: process.env.REACT_APP_PUBLIC_KEY, 
+      // key_secret: process.env.REACT_APP_SECRET_KEY,
+      key_id: 'rzp_test_8emA6zzli6nGP1',
+      key_secret: 'O4RlOXRxnLAX8IaXM3ifqFZZ',
+   
+
       amount: data.data.payment.amount,
       currency: "INR",
       name: "Org. Name",

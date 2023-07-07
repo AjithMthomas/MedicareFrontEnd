@@ -106,7 +106,7 @@ function Department() {
                       <td className=" px-6 py-4  flex justify-center">
                         <div className="flex ms-10">
                         <Button color="green"  onClick={()=>handleClick(department?.id)}><span className='flex'> Edit  <AiFillEdit className='w-4 h-4 ms-3'/></span></Button>
-                        <Button color="red" className='ms-3' ><span className='flex '>List  <RxSwitch className='w-4 h-4 ms-3 '/></span></Button>
+                        <Button color="red" className='ms-3' ><span className='flex '>Unlist  <RxSwitch className='w-4 h-4 ms-3 '/></span></Button>
                        </div>
                       </td>
                       {show && 
