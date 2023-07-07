@@ -11,7 +11,7 @@ import {
 import PageLoader from "./PageLoader";
 import { Link } from "react-router-dom";
 import { Rating } from "@material-tailwind/react";
-import Notfound from "../../images/Not found.gif";
+import Notfound from "../../images/notfound.gif";
 
 export default function DoctorList() {
   const [doctors, setDoctors] = useState([]);

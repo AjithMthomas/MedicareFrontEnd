@@ -126,15 +126,14 @@ export default function Sidebar() {
           </ListItemPrefix>
           Profile
         </ListItem></Link>
-        <ListItem>
+        <Link to='createRoom/'><ListItem>
           <ListItemPrefix>
             <InboxIcon className="h-5 w-5" />
           </ListItemPrefix>
-         Messages
+          Create Room
           <ListItemSuffix>
-            <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
           </ListItemSuffix>
-        </ListItem>
+        </ListItem></Link>
        
        <Link to='createBlog/'> <ListItem>
           <ListItemPrefix>

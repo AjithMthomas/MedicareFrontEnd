@@ -9,6 +9,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { Toaster } from 'react-hot-toast';
 import { getLocal } from '../Contexts/auth'
+import logoImage from "../../images/logo.png"
 
  
 export default function NavbarComponent() {
@@ -78,13 +79,14 @@ export default function NavbarComponent() {
     <Navbar className="sticky bg-nav  lg:px-8 lg:py-4  top-0 z-50 ">
       <Toaster position='top-center' reverseOrder='false' limit={1} ></Toaster>
         <div className="bg-nav  mx-auto  flex items-center justify-between text-blue-gray-900 text-black">
-      <Link to='/'> <Typography
-          as="a"
-          href="#"
-          className="mr-4 cursor-pointer py-1.5 font-medium"
-        >
-          MEDIcare
-        </Typography></Link> 
+        <Link to="/">
+        <div className="flex items-center">
+          <img src={logoImage} alt="Logo" className="mr-2 h-6 w-6" /> 
+          <Typography as="a" href="#" className="mr-4 cursor-pointer py-1.5 font-medium">
+            MEDIcare
+          </Typography>
+        </div>
+      </Link>
         <div className="hidden lg:block">{navList}</div>
         <div className="flex gap-3 justify-end">
         <Link to="/login"><Button variant="gradient" size="sm" className="hidden lg:inline-block  hover:bg-blue-500">

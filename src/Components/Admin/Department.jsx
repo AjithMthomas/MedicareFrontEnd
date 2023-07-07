@@ -5,11 +5,14 @@ import { RxSwitch } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-tailwind/react';
 import { toast,Toaster,} from "react-hot-toast";
+import EditDepartment from './EditaDepartment';
 
 function Department() {
   const [departments, setDepartments] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredDepartments, setFilteredDepartments] = useState([]);
+  const [show,setShow] = useState(false)
+  const [departmentId,setDepartmentId] = useState ('')
 
   async function getDepartments() {
     try {
@@ -35,7 +38,10 @@ function Department() {
     }
   }, [searchQuery, departments]);
 
-
+  function handleClick(id){
+    setDepartmentId(id)
+    setShow(true)
+ }
 
 
   return (
@@ -99,11 +105,16 @@ function Department() {
                      
                       <td className=" px-6 py-4  flex justify-center">
                         <div className="flex ms-10">
-                        <Button color="green"><span className='flex'> Edit  <AiFillEdit className='w-4 h-4 ms-3'/></span></Button>
+                        <Button color="green"  onClick={()=>handleClick(department?.id)}><span className='flex'> Edit  <AiFillEdit className='w-4 h-4 ms-3'/></span></Button>
                         <Button color="red" className='ms-3' ><span className='flex '>List  <RxSwitch className='w-4 h-4 ms-3 '/></span></Button>
                        </div>
                       </td>
+                      {show && 
+                      <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+                      <EditDepartment setShow={setShow} departmentId={departmentId} />
+                    </div>}
                     </tr>
+                    
                   ))
                 ) : (
                   <tr>

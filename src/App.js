@@ -24,6 +24,7 @@ import CreateSlotForm from "./Components/Doctor/CreateSlotForm"
 import Appointment from "./Components/Doctor/Appointments"
 import DoctorProfikeInHome from "./pages/User/DoctorProfileInHome"
 import CreateBlog from "./Components/Doctor/CreateBlog"
+import CreateRoom from './Components/Doctor/CreateRoom';
 import ChatGroup from './pages/chat/chatgroups';
 import PaymentDetails from './Components/Payment/PaymentDetails';
 import PaymentSuccessPage from './Components/Payment/PaymentSucces';
@@ -64,6 +65,7 @@ function App() {
              <Route path='shedule/' element ={<CreateSlotForm/>}/>,
              <Route path='appointment/' element ={<Appointment/>}/>,
              <Route path='createBlog/' element ={<CreateBlog/>}/>,
+             <Route path='createRoom/' element ={<CreateRoom/>}/>,
              <Route path='profile/' element ={<DoctorProfile/>}/>,
           ]}/>
      

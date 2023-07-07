@@ -4,6 +4,9 @@ import { getLocal } from '../Contexts/auth';
 import axios from 'axios';
 import ChatSidebar from './chatSideBar';
 import { Avatar } from "@material-tailwind/react";
+import { BASE_URL } from '../../Utils/config';
+
+
 
 const ChatComponent = () => {
   const [author, setAuthor] = useState('');
@@ -11,6 +14,7 @@ const ChatComponent = () => {
   const [activeRoomId, setActiveRoomId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [user,setUser] = useState({})
 
   const scroll = useRef();
 
@@ -84,6 +88,18 @@ const ChatComponent = () => {
 
   useEffect(() => {
     scroll.current?.scrollIntoView({ behavior: 'smooth' });
+    async function getDoctor() {
+      try {
+        const response = await axios.get(`/api/getSingleUser/${author}`);
+        console.log(response); 
+        setUser(response?.data?.userDetails);
+        
+       
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getDoctor()
   }, [messages]);
 
   return (
@@ -120,9 +136,10 @@ const ChatComponent = () => {
                         <>
                           <div className="mr-3">{message.content}</div>
                           <Avatar
-                            src="https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg"
+                            src={BASE_URL+user?.image}
                             alt="avatar"
                             size="xs"
+                            className='rounded-full h-6 w-6'
                           />
                         </>
                       ) : (
@@ -131,7 +148,7 @@ const ChatComponent = () => {
                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU"
                             alt="avatar"
                             size="xs"
-                            className="mr-3"
+                            className="mr-3 rounded-full h-6 w-6"
                           />
                           <div>{message.content}</div>
                         </>
