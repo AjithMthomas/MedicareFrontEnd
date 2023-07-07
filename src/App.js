@@ -61,8 +61,8 @@ function App() {
 
        {/* doctorside */}
           <Route path='DoctorHome' element ={<DoctorDashboard/>} children={[
-            <Route path='' element ={<Dashboard/>}/>,
-             <Route path='shedule/' element ={<CreateSlotForm/>}/>,
+            // <Route path='' element ={<Dashboard/>}/>,
+             <Route path='' element ={<CreateSlotForm/>}/>,
              <Route path='appointment/' element ={<Appointment/>}/>,
              <Route path='createBlog/' element ={<CreateBlog/>}/>,
              <Route path='createRoom/' element ={<CreateRoom/>}/>,
@@ -85,8 +85,8 @@ function App() {
         
         {/* admin interface */}
           <Route path='AdminDashboard/' element ={<AdminHome/>} children={[
-               <Route path='' element ={<AdminDashbord/>}/>,
-               <Route path='usersList/' element ={<UsersList/>}/>,
+              //  <Route path='' element ={<AdminDashbord/>}/>,
+               <Route path='' element ={<UsersList/>}/>,
                <Route path='doctorsList/' element ={<DoctorsList/>}/>,
                <Route path='appointments/' element ={<Appointments/>}/>,
                <Route path='department/' element ={<Department/>}/>,

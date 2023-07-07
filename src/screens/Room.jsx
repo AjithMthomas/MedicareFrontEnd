@@ -3,6 +3,7 @@ import { useSocket } from '../Components/SocketContext/SocketProvider'
 import ReactPlayer from 'react-player'
 import peer from '../Components/Service/peer'
 import Footer from '../Components/UserSide/Footer'
+import logoImage from '../images/logo.png'
 
 
 
@@ -139,13 +140,17 @@ function Room() {
 
   return (
     <>
-    <div className='bg-emerald-400 h-28 pt-9'>
-    <h1 className='text-center text-black  font-extrabold text-2xl uppercase'> video Room</h1>
+    <div className='bg-gray-200 h-28 pt-9'>
+        <div className="div flex justify-center">
+         <img src={logoImage} alt="Logo" className="mr-2 h-10 w-10" />
+         <div className="flex items-center text-lg">MEDIcare</div>
+        </div>
+    <h1 className='text-center text-black  font-extrabold  font-serif text-2xl uppercase'> Video Room</h1>
     </div>
     <div className='h-full bg-black p-1'>
     
     
-    <h4 className='text-center font-semibold text-white text-2xl'>{RemoteSocketId ? 'Connected' : 'No one in room'}</h4>
+    <h4 className='text-center font-semibold text-white text-2xl'>{RemoteSocketId ? 'Connected' : 'No one in room!'}</h4>
     { (Mystream) && <div className='flex justify-center'><button className='bg-blue-600 p-2 mt-3 h-11 w-28 rounded-lg' onClick={sendStreams}>Send Stream</button></div> }
      <div>
      

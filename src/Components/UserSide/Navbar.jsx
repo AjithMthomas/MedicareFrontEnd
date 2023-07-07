@@ -11,6 +11,7 @@ import { Toaster } from 'react-hot-toast';
 import { getLocal } from '../Contexts/auth'
 import logoImage from "../../images/logo.png"
 
+
  
 export default function NavbarComponent() {
   const [openNav, setOpenNav] = useState(false);

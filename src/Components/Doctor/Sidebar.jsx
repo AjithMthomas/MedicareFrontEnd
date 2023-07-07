@@ -109,7 +109,7 @@ export default function Sidebar() {
                 </ListItemPrefix>
                 View Appointments 
               </ListItem></Link> 
-            <Link to='shedule/'><ListItem>
+            <Link to=''><ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>

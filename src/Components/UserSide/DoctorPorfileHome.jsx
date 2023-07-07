@@ -115,6 +115,18 @@ export default function DoctorProfileHome() {
   }, []);
 
 
+  function formatTime(time) {
+    const parts = time.split(':');
+    let hours = parseInt(parts[0], 10);
+    const minutes = parts[1];
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+  
+    hours %= 12;
+    hours = hours || 12;
+  
+    return `${hours}:${minutes} ${ampm}`;
+  }
+
   return (
     <div className="bg-white rounded-lg shadow-md p-8 "style={{ backgroundImage: `url(${Bg})`}}>
      <div  className="h-20 flex justify-center items-center">
@@ -188,34 +200,50 @@ export default function DoctorProfileHome() {
 
       </div>
    
-
       {showDate && selectedSlots?.length > 0 && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 mt-3">
-          <div className="bg-white rounded-lg p-6  ">
-            <div className="flex place-content-end ">
-            <AiOutlineCloseCircle className="text-end text-gray-500" onClick={()=>{setShowDate(false);setSelectedSlots([]);setDate('')}}/>
-            </div>
-           
-            <h5 className="mt-1 font-serif text-xl">Available Slots:</h5>
-            <div className="grid grid-cols-2 gap-4 mt-4">
-              {selectedSlots.map((slot) => (
-                <button
-                  key={slot.id}
-                  className="bg-blue-500 text-white py-2 px-4 rounded-md shadow-2xl" id={slot.id}
-                  onClick={()=>handleClick(slot.id)}
-                >
-                  {slot.start_time}-{slot.end_time}
-                </button>
-              ))}
-            </div>
-            <div className="w-full flex place-content-center">
-            <button className="bg-yellow-500 text-black py-2 px-4 rounded-md border-black mt-4 " onClick={()=>setShowPayment(true)}>Book</button>
-            </div>
-          </div>
-          
-        </div>
-      )}
-    
+  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 mt-3">
+    <div className="bg-white rounded-lg p-6">
+      <div className="flex place-content-end">
+        <AiOutlineCloseCircle
+          className="text-end text-gray-500"
+          onClick={() => {
+            setShowDate(false);
+            setSelectedSlots([]);
+            setDate('');
+          }}
+        />
+      </div>
+
+      <h5 className="mt-1 font-serif text-xl">Available Slots:</h5>
+      <div className="grid grid-cols-3 gap-4 mt-4">
+        {selectedSlots.map((slot) => {
+          const startTime = formatTime(slot.start_time);
+          const endTime = formatTime(slot.end_time);
+
+          return (
+            <button
+              key={slot.id}
+              className="bg-blue-500 text-white py-2 px-4 rounded-md shadow-2xl"
+              id={slot.id}
+              onClick={() => handleClick(slot.id)}
+            >
+              {startTime} - {endTime}
+            </button>
+          );
+        })}
+      </div>
+      <div className="w-full flex place-content-center">
+        <button
+          className="bg-yellow-500 text-black py-2 px-4 rounded-md border-black mt-4"
+          onClick={() => setShowPayment(true)}
+        >
+          Book
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
       {showPayment&&
       <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
         <PaymentDetails doctor={doctor} bookedSlot={bookedSlot} setShowPayment={setShowPayment}/>
