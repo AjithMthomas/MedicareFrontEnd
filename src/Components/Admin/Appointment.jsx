@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import avatar from "../../images/doctorAvatar.jpg"
+import avatar from "../../images/doctorAvatar.jpg";
 
 function Appointments() {
   const [appointments, setAppointments] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredAppointments, setFilteredAppointments] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [appointmentsPerPage] = useState(4);
 
   async function getAppointments() {
     try {
@@ -33,6 +35,22 @@ function Appointments() {
       setFilteredAppointments(filtered);
     }
   }, [searchQuery, appointments]);
+
+  const indexOfLastAppointment = currentPage * appointmentsPerPage;
+  const indexOfFirstAppointment = indexOfLastAppointment - appointmentsPerPage;
+  const currentAppointments = filteredAppointments.slice(indexOfFirstAppointment, indexOfLastAppointment);
+
+  const paginateNext = () => {
+    if (currentPage < Math.ceil(filteredAppointments.length / appointmentsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const paginatePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <div className="flex h-full bg-acontent mt-3">
@@ -70,8 +88,8 @@ function Appointments() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-                {filteredAppointments.length > 0 ? (
-                  filteredAppointments.map((appointment, index) => (
+                {currentAppointments.length > 0 ? (
+                  currentAppointments.map((appointment, index) => (
                     <tr className="hover:bg-gray-50" key={index}>
                       <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
                         <div className="relative h-10 w-10">
@@ -109,31 +127,46 @@ function Appointments() {
                       </td>
                       <td className="px-6 py-4">
                         {appointment.status === 'rejected' || appointment.status === 'pending' ? (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 text-xs font-semibold text-red-600">
+                          <span className="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 text-xs font-semibold text-red-600">
                             <span className="h-1.5 w-1.5 rounded-full bg-red-600"></span>
                             {appointment.status}
-                            </span>
+                          </span>
                         ) : (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600">
+                          <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600">
                             <span className="h-1.5 w-1.5 rounded-full bg-green-600"></span>
                             {appointment.status}
-                            </span>
+                          </span>
                         )}
-                        </td>
+                      </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td
-                      colSpan="5"
-                      className="px-6 py-4 text-center text-red-500 font-bold"
-                    >
+                    <td colSpan="5" className="px-6 py-4 text-center text-red-500 font-bold">
                       No related appointments found.
                     </td>
                   </tr>
                 )}
               </tbody>
             </table>
+          </div>
+          <div className="flex justify-center mt-4">
+            {currentPage > 1 && (
+              <button
+                className="bg-blue-500 text-white rounded-md px-4 py-2 mx-2"
+                onClick={paginatePrev}
+              >
+                Previous Page
+              </button>
+            )}
+            {currentPage < Math.ceil(filteredAppointments.length / appointmentsPerPage) && (
+              <button
+                className="bg-blue-500 text-white rounded-md px-4 py-2 mx-2"
+                onClick={paginateNext}
+              >
+                Next Page
+              </button>
+            )}
           </div>
         </div>
       </div>

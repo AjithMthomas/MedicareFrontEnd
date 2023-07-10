@@ -3,14 +3,34 @@ import React,{useState,useEffect} from 'react';
 import { BASE_URL } from '../../Utils/config';
 import { toast,Toaster } from 'react-hot-toast'
 import PageLoader from '../UserSide/PageLoader';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+
+const validationSchema = Yup.object({
+    username: Yup.string().min(6).required('Username is required.'),
+    email: Yup.string().email('Invalid email').required('Email is required.'),
+    phone_number: Yup.string().min(10).required('Phone number is required.'),
+    password: Yup.string()
+      .required('Password is required.')
+      .min(8)
+      .matches(/^(?=.*[a-zA-Z])/, 'Password must contain at least one letter.')
+      .matches(/^(?=.*[0-9])/, 'Password must contain at least one number.')
+      .matches(/^(?=.*[!@#$%^&*])/, 'Password must contain at least one special character.'),
+    confirm_pass: Yup.string()
+      .required('Confirm your password.')
+      .oneOf([Yup.ref('password')], 'Passwords must match.'),
+  });
 
 function SignUp() {
-    const [username,setUsername] = useState ('')
-    const [email,setEmail] = useState('')
-    const [phone_number,setPhonenumber] = useState('')
-    const [password,setPassword] = useState('')
-    const [cPassword,setCpassword] = useState('')
     const [isLoading, setIsLoading] = useState(true);
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({
+        resolver: yupResolver(validationSchema),
+      });
+
+
 
     useEffect(() => {
         // Simulate an asynchronous task
@@ -19,35 +39,19 @@ function SignUp() {
         }, 2000);
       }, []);
 
-    const SignUpSubmit = async (e) => {
-        e.preventDefault();
-      
-        if (password === cPassword) {
-          try {
-            const response = await fetch('http://127.0.0.1:8000/api/register/', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                username,
-                email,
-                phone_number: phone_number,
-                password,
-              }),
-            });
-            console.log('sgdsgsgd',response)
-      
-            if (response.ok) {
-              toast.success('Account Created, Check mail for activation');
-              e.target.reset();
-            } else {
-              toast.error('Credential already exist');
-            }
-          } catch (error) {
-            toast.error('Credential already exist');
-            console.error(error);
+      const onSubmit = async (data) => {
+        try {
+          const response = await axios.post(`${BASE_URL}/api/register/`, data);
+          console.log(response);
+          if (response.status) {
+            toast.success('Registration successful! Check your email to activate your account', { duration: 3000 });
+            reset(); 
+          } else {
+            toast.error('Something went wrong');
           }
-        } else {
-          toast.error("Password didn't match");
+        } catch (error) {
+          toast.error('An error occurred while registering');
+          console.error(error);
         }
       };
       
@@ -61,81 +65,89 @@ function SignUp() {
         <div className="relative flex flex-row  min-h-screen bg-no-repeat bg-cover justify-end overflow-hidden bg-[url('images/login.jpg')] " >
         <Toaster position='top-center' reverseOrder='false'  ></Toaster>
          <h1 className='ps-6 pt-4 text-xl font-bold '>MEDIcare</h1>
-         <div className="w-1/2 p-6 m-auto rounded-md shadow-md lg:max-w-xl  border border-purple-100">
+         <div className="w-1/2 p-5 m-auto rounded-md shadow-md lg:max-w-xl  border border-purple-100">
                 <h1 className="text-3xl font-semibold text-center text-purple-700 ">
                    Register
                 </h1>
                 
-                <form className="mt-6" onSubmit={SignUpSubmit}>
-                    <div className="mb-2">
-                        <label
-                            htmlFor="Name"
-                            className="block text-sm font-semibold text-gray-800"
-                        >
-                            Name
-                        </label>
-                        <input
-                            type="Name" name='Name' onChange={e =>setUsername(e.target.value)}
-                            className="w-3/4 px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        />
-                    </div>
-                    <div className="mb-2">
-                        <label
-                            htmlFor="email"
-                            className="block text-sm font-semibold text-gray-800"
-                        >
-                            Email
-                        </label>
-                        <input
-                            type="email" name='email' onChange={e =>setEmail(e.target.value)}
-                            className="w-3/4 px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        />
-                    </div>
-                    <div className="mb-2">
-                        <label
-                            htmlFor="number"
-                            className="block text-sm font-semibold text-gray-800"
-                        >
-                            Phone Number
-                        </label>
-                        <input
-                            type="number"  name='Pnumber' onChange={e=>setPhonenumber(e.target.value)}
-                            className="w-3/4 px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        />
-                    </div>
-                    <div className="mb-2">
-                        <label
-                            htmlFor="password"
-                            className="block text-sm font-semibold text-gray-800"
-                        >
-                            Password
-                        </label>
-                        <input
-                            type="password" name='password' onChange={e=>setPassword(e.target.value)}
-                            className=" w-3/4  px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        />
-                    </div>
-                    <div className="mb-2">
-                        <label
-                            htmlFor="password"
-                            className="block text-sm font-semibold text-gray-800"
-                        >
-                             Confirm Password
-                        </label>
-                        <input
-                            type="password" name='cPassword' onChange={e=> setCpassword(e.target.value)}
-                            className=" w-3/4  px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        />
-                    </div>
-                   
-                    <div className="mt-6">
-                        <button className="w-80 px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
-                            Register
-                        </button>
-                    </div>
-                </form>
-
-                <p className="mt-8 text-xs font-light text-center text-gray-700">
+                <form className="mt-6" onSubmit={handleSubmit(onSubmit)}>
+              <div className="mb-2">
+                <label htmlFor="username" className="block text-sm font-semibold text-gray-800">
+                  Username
+                </label>
+                <input
+                  type="text"
+                  name="username"
+                  {...register('username')}
+                  className="w-3/4 px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+                <div className="w-3/4 ms-16 mt-2">
+                  {errors.username && <div className="text-red-500 text-center   bg-purple-200 rounded-md p-2 text-xs ">{errors.username.message}</div>}
+                </div>
+              </div>
+              <div className="mb-2">
+                <label htmlFor="email" className="block text-sm font-semibold text-gray-800">
+                  Email
+                </label>
+                <input
+                  type="text"
+                  name="email"
+                  {...register('email')}
+                  className="w-3/4 px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+                <div className="w-3/4 ms-16  mt-1 ">
+                  {errors.email && <div className="text-red-500 text-center bg-purple-200 rounded-md p-2  text-xs ">{errors.email.message}</div>}
+                </div>
+              </div>
+              <div className="mb-2">
+                <label htmlFor="phone_number" className="block text-sm font-semibold text-gray-800">
+                  Phone Number
+                </label>
+                <input
+                  type="text"
+                  name="phone_number"
+                  {...register('phone_number')}
+                  className="w-3/4 px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+                <div className="w-3/4 ms-16  mt-1"> 
+                  {errors.phone_number && <div className="text-red-500 text-center bg-purple-200 rounded-md p-2  text-xs ">{errors.phone_number.message}</div>}
+                </div>
+              </div>
+              <div className="mb-2">
+                <label htmlFor="password" className="block text-sm font-semibold text-gray-800">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  {...register('password')}
+                  className="w-3/4 px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+                <div className="w-3/4 ms-16  mt-1 ">
+                  {errors.password && <div className="text-red-500 text-center bg-purple-200 rounded-md p-2  text-xs ">{errors.password.message}</div>}
+                </div>
+              </div>
+              <div className="mb-2">
+                <label htmlFor="confirm_pass" className="block text-sm font-semibold text-gray-800">
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  name="confirm_pass"
+                  {...register('confirm_pass')}
+                  className="w-3/4 px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+                <div className="w-3/4 ms-16 mt-1 ">
+                  {errors.confirm_pass && <div className="text-red-500 text-center bg-purple-200 rounded-md p-2  text-xs ">{errors.confirm_pass.message}</div>}
+                </div>
+              </div>
+              <div className="mt-6">
+                <button className="w-3/4 px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+                  Register
+                </button>
+              </div>
+            </form>
+                <p className="mt-4 text-xs font-light text-center text-gray-700">
                     {" "}
                 Have an account?{" "}
                 <Link to="/login"><button className="font-medium text-purple-600 hover:underline">Login</button></Link>
