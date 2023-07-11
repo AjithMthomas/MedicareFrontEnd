@@ -139,7 +139,7 @@ export default function DoctorProfileHome() {
           <img
             src={BASE_URL + doctor?.user.image}
             alt="Profile Picture"
-            className="w-80 h-72 rounded-full mr-4  "
+            className="w-72 h-72 rounded-full mr-4  "
           />
           </div>
         ) : (
@@ -160,38 +160,50 @@ export default function DoctorProfileHome() {
         </div>
       </div>
 
-      <div className="ms-20 mt-14">
-        <p className="mb-2">
-          Phone Number: {doctor.user && doctor.user.phone_number}
-        </p>
-        <p className="mb-2">Email: {doctor.user && doctor.user.email}</p>
-        <p className="mb-2">Fees: Rs {doctor.fee}</p>
-        <p className="mb-2">Experience: {doctor.experience}Years</p>
+      <div className="ms-20 ">
+        <div className="mt-5">
+      <p className="mb-2 p-2 bg-white shadow-lg rounded-lg">
+    <span className="font-semibold">Phone Number:</span> {doctor.user && doctor.user.phone_number}
+    </p>
+    <p className="mb-2 p-2 bg-white shadow-lg rounded-lg">
+      <span className="font-semibold">Email:</span> {doctor.user && doctor.user.email}
+    </p>
+    <p className="mb-2 p-2 bg-white shadow-lg rounded-lg">
+      <span className="font-semibold">Fees:</span> Rs {doctor.fee}
+    </p>
+    <p className="mb-2 p-2 bg-white shadow-lg rounded-lg">
+      <span className="font-semibold">Experience:</span> {doctor.experience} Years
+    </p>
+    </div>
+
         {/* <button className="bg-yellow-500 text-black py-2 px-4 rounded-md ">
           <Link to="/videoCall">
             <span> Chat with Doctor</span>
           </Link>
         </button> */}
-        {!showDate ? (
-          <button
-            className="bg-blue-500 text-white py-2 px-4 rounded-md ms-1 mt-2"
-            onClick={toggleDate}
-          >
-            Book Appointment
-          </button>
-        ) : (
-          <div className="mb-4">
-            <h5 className="mt-1">Select a Date</h5>
-            <input
-              type="date"
-              id="date"
-              value={date}
-              onChange={handleChange}
-              className="mt-3 border-gray-300 border-2 rounded-md py-2 px-3"
-            />
-          </div>
-        )}
-          {showDate && selectedSlots.length === 0 && (
+    {
+  !showDate ? (
+    <button
+      className="bg-blue-500 text-white py-2 px-4 rounded-md ms-1 mt-2"
+      onClick={toggleDate}
+    >
+      Book Appointment
+    </button>
+  ) : (
+    <div className="mb-4">
+      <h5 className="mt-1">Select a Date</h5>
+      <input
+        type="date"
+        id="date"
+        value={date}
+        onChange={handleChange}
+        min={new Date().toISOString().split("T")[0]} 
+        className="mt-3 border-gray-300 border-2 rounded-md py-2 px-3"
+      />
+    </div>
+  )
+}
+        {showDate && selectedSlots.length === 0 && (
         <p className="font-serif text-xl text-blue-500">Select a Valid slot to book</p>
       )}
       </div>

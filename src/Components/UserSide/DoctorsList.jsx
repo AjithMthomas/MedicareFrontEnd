@@ -66,6 +66,7 @@ export default function DoctorList() {
       {isLoading ? (
         <PageLoader />
       ) : (
+        <div className="div">
         <div className="flex flex-wrap justify-center mt-5">
           <div className="w-full mx-32">
             <form>
@@ -164,24 +165,28 @@ export default function DoctorList() {
             ))
           )}
 
-          {filteredDoctors.length > doctorsPerPage && (
+         
+        </div>
+        {filteredDoctors.length > doctorsPerPage && (
             <div className="flex justify-center mt-5">
-              <Button
-                color="blueGray"
-                className="mx-2"
-                disabled={currentPage === 1}
-                onClick={() => paginate(currentPage - 1)}
-              >
-                Previous Page
-              </Button>
-              <Button
-                color="blueGray"
-                className="mx-2"
-                disabled={currentPage === Math.ceil(filteredDoctors.length / doctorsPerPage)}
-                onClick={() => paginate(currentPage + 1)}
-              >
-                Next Page
-              </Button>
+              {currentPage !== 1 && (
+                <Button
+                  color="blueGray"
+                  className="mx-2"
+                  onClick={() => paginate(currentPage - 1)}
+                >
+                  Previous Page
+                </Button>
+              )}
+              {currentPage !== Math.ceil(filteredDoctors.length / doctorsPerPage) && (
+                <Button
+                  color="blueGray"
+                  className="mx-2"
+                  onClick={() => paginate(currentPage + 1)}
+                >
+                  Next Page
+                </Button>
+              )}
             </div>
           )}
         </div>

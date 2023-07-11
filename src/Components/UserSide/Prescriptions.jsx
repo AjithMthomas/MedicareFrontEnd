@@ -104,6 +104,11 @@ function Prescriptions() {
                   ))}
                 </tbody>
               </table>
+              {prescriptions?.length == 0 &&
+                  <div className="flex justify-center w-full my-20 ">
+                  <h1 className='text-lg font-serif text-red-500'>No Prescriptions yet</h1>
+                  </div>
+                  }
             </div>
           </div>
         </div>

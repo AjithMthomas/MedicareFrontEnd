@@ -10,6 +10,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Toaster } from 'react-hot-toast';
 import { getLocal } from '../Contexts/auth'
 import logoImage from "../../images/logo.png"
+import { RiStethoscopeFill } from 'react-icons/ri';
+import { BsFillChatRightTextFill } from 'react-icons/bs';
+import { BsPeopleFill } from 'react-icons/bs';
 
 
  
@@ -39,7 +42,7 @@ export default function NavbarComponent() {
         className="p-1 font-normal"
       >
        <Link to='/doctorsListhome/'> <a href="#" className="flex items-center  hover:text-blue-500 ">
-          Doctors
+       <RiStethoscopeFill className="text-xl me-1 flex items-center font-extrabold"/> Doctors
         </a></Link>
       </Typography>
       <Typography
@@ -49,7 +52,7 @@ export default function NavbarComponent() {
         className="p-1 font-normal"
       >
         <Link to='/blogs'><a href="#" className="flex items-center  hover:text-blue-500">
-          Blogs
+         <BsFillChatRightTextFill className="text-lg me-1 flex items-center mt-1"/> Blogs
         </a></Link>
       </Typography>
       <Link to='/chat'><Typography
@@ -59,19 +62,9 @@ export default function NavbarComponent() {
         className="p-1 font-normal"
       >
         <a href="#" className="flex items-center  hover:text-blue-500">
-          Communities
+          <BsPeopleFill className="text-lg me-1 flex items-center "/>Communities
         </a>
       </Typography></Link>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center hover:bg-blue-500 ">
-          Docs
-        </a>
-      </Typography>
     </ul>
   );
  

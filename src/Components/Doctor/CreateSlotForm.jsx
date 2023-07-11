@@ -54,6 +54,7 @@ useEffect(()=>{
             type="date"
             id="date"
             value={date}
+            min={new Date().toISOString().split("T")[0]} 
             onChange={(e) => setDate(e.target.value)}
             className="w-full border-gray-300 border-2 rounded-md py-2 px-3"
           />

@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
+import { Toaster } from 'react-hot-toast'
+
 
 function ProfileDetails({user}) {
+
   return (
    <>
    <div className="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4 w-full">
+   <Toaster position='top-center' reverseOrder='false'  ></Toaster>
     <div className="w-full flex flex-col ">
       <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
         <h4 className="text-xl text-gray-900 font-bold text-start">Personal Info</h4>
