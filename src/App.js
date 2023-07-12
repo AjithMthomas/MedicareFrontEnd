@@ -38,7 +38,9 @@ import Room from "./screens/Room"
 
 
 function App() {
+
   axios.defaults.baseURL = BASE_URL;
+  
   return (
     <div className="App">
       <Router>
