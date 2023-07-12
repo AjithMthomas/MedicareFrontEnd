@@ -20,13 +20,13 @@ export default async function login(e) {
     if (response.ok) {
       const data = await response.json();
       localStorage.setItem('authToken', JSON.stringify(data));
-      toast.success('Login success');
+      toast.success('Login success',{ duration: 5000 });
       return data;
     } else {
       toast.error('Invalid user credentials');
     }
   } catch (error) {
-    toast.error('Login failed');
+    toast.error('Login failed',{ duration: 5000 });
     console.error('Login failed:', error);
   }
 }
