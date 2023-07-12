@@ -44,7 +44,7 @@ function SignUp() {
           const response = await axios.post(`${BASE_URL}/api/register/`, data);
           console.log(response);
           if (response.status) {
-            toast.success('Registration successful! Check your email to activate your account', { duration: 3000 });
+            toast.success('Registration successful! Check your email to activate your account', { duration: 5000 });
             reset(); 
           } else {
             toast.error('Something went wrong');

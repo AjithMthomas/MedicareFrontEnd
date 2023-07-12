@@ -24,7 +24,7 @@ const ResetPassword = () => {
     if (password !== cPassword){
         return toast.error('Passwords are not equal')
     }
-    axios.post('http://127.0.0.1:8000/api/resetPassword', {
+    axios.post('/api/resetPassword', {
       password : password,
       cPassword :cPassword,
       storedData : storedData
