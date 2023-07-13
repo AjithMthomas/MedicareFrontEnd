@@ -5,6 +5,8 @@ import axios from 'axios';
 import ChatSidebar from './chatSideBar';
 import { Avatar } from "@material-tailwind/react";
 import { BASE_URL } from '../../Utils/config';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 
 
@@ -19,6 +21,8 @@ const ChatComponent = () => {
   const scroll = useRef();
 
   const socketRef = useRef(null);
+  
+  const history = useNavigate()
 
   useEffect(() => {
     const localResponse = getLocal('authToken');
@@ -53,8 +57,10 @@ const ChatComponent = () => {
         .catch((error) => {
           console.error('Error:', error);
         });
+    }else{
+      history('/login')
+      toast.error('Please Login for community chat',{duration:5000})
     }
-
     return () => {
       if (socketRef.current) {
         socketRef.current.close();

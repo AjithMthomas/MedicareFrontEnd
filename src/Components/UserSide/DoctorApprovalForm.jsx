@@ -84,10 +84,16 @@ import {
     }
   
     useEffect(() => {
+      
       const localResponse = getLocal('authToken');
       const decoded = jwt_decode(localResponse)
-      setUser(decoded.user_id)
-      getDepartments();
+      if(decoded){
+        setUser(decoded.user_id)
+        getDepartments();
+      }else{
+        histoty('login')
+        toast.error('Please Login to fill the form',{duration:5000})
+      }
     }, []);
   
    
