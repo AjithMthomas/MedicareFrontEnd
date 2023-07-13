@@ -22,13 +22,13 @@ import {
     const [user,setUser] = useState("")
     const [is_approved,setIs_approved] = useState(false)
   
-    const histoty = useNavigate()
+    const history = useNavigate()
   
     const createDoctor = async (e) => {
         e.preventDefault()
         try {
           if (!localStorage.getItem('authToken')) {
-             histoty('login')
+            history('/login')
             return;
           }
       
@@ -49,7 +49,6 @@ import {
             throw new Error('Please enter your fee');
           }
       
-          // Create a new FormData object
           const formData = new FormData();
           formData.append("address", address);
           formData.append("specialization", specialization);
@@ -84,26 +83,19 @@ import {
     }
   
     useEffect(() => {
-      
-      const localResponse = getLocal('authToken');
-      const decoded = jwt_decode(localResponse)
-      if(decoded){
-        setUser(decoded.user_id)
+      try {
+        const localResponse = getLocal('authToken');
+        const decoded = jwt_decode(localResponse);
+        setUser(decoded.user_id);
         getDepartments();
-      }else{
-        histoty('login')
-        toast.error('Please Login to fill the form',{duration:5000})
+      } catch (error) {
+       history('/login') 
+      toast.error('Please login for filling the form',{duration:5000})
       }
     }, []);
-  
-    useEffect(()=>{
-      if(user){
-        history('doctorApproval/')
-      }else{
-        history('/login')
-        toast.error('Please Login for filling the form',{duration:5000})
-      }
-    },[])
+    
+
+   
   
     return (
     <div className="w-full h-screen bg-cover " style={{backgroundImage: `url(${baground})`}}>
@@ -117,7 +109,7 @@ import {
             <div className="mb-4 flex flex-col gap-6 w-3/4">
               <Input size="lg" label="Address" className="mt-4 text-start p-3" name="address" onChange={(e) => setAddress(e.target.value)} />
   
-              <div className="relative mt-3">
+              <div className="relative mt-7">
                 <select
                   className="w-full py-2  border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   value={specialization}
@@ -132,14 +124,14 @@ import {
                 </select>
               </div>
   
-              <Input size="lg" label="Experience" type="number" name="experience" className="mt-4 p-3" onChange={(e) => setExperience(e.target.value)} />
+              <Input size="lg" label="Experience" type="number" name="experience" className=" p-3" onChange={(e) => setExperience(e.target.value)} />
   
               <Input size="lg" label="Required Fee in Rs." type="number" name="fee" step="0.01" className="mt-4 p-3" onChange={(e) => setFee(e.target.value)} />
   
-              <Input size="lg" label="Certificate" type="file" name="certificate" className="mt-4  p-3" onChange={(e) => setCertificate(e.target.files[0])} />
+              <Input size="lg" label="Certificate" type="file" name="certificate" className="mt-8  p-3" onChange={(e) => setCertificate(e.target.files[0])} />
             </div>
             
-            <Button className="mt-6 w-3/4 p-3 mb-7" type="submit" >
+            <Button className="mt-14 w-3/4 p-3 mb-7" type="submit" >
               Request
             </Button>
           </form>

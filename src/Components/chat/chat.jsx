@@ -25,10 +25,15 @@ const ChatComponent = () => {
   const history = useNavigate()
 
   useEffect(() => {
-    const localResponse = getLocal('authToken');
-    const decodedToken = jwtDecode(localResponse);
-    setAuthor(decodedToken.user_id);
-
+    try{
+      const localResponse = getLocal('authToken');
+      const decodedToken = jwtDecode(localResponse);
+      setAuthor(decodedToken.user_id);
+    }catch(e){
+      history('/login')
+      toast.error('Please Login for community chat',{duration:5000})
+    }
+  
     axios
       .get('rooms/')
       .then((response) => {
@@ -40,16 +45,7 @@ const ChatComponent = () => {
       });
   }, []);
 
-  
-  useEffect(()=>{
-    if(author){
-      history('chat/')
-    }else{
-      history('/login')
-      toast.error('Please Login for community chat',{duration:5000})
-    }
-     
-  },[])
+
 
 
   useEffect(() => {
