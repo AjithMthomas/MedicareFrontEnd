@@ -96,7 +96,14 @@ import {
       }
     }, []);
   
-   
+    useEffect(()=>{
+      if(user){
+        history('doctorApproval/')
+      }else{
+        history('/login')
+        toast.error('Please Login for filling the form',{duration:5000})
+      }
+    },[])
   
     return (
     <div className="w-full h-screen bg-cover " style={{backgroundImage: `url(${baground})`}}>

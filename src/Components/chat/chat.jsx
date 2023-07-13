@@ -40,6 +40,18 @@ const ChatComponent = () => {
       });
   }, []);
 
+  
+  useEffect(()=>{
+    if(author){
+      history('chat/')
+    }else{
+      history('/login')
+      toast.error('Please Login for community chat',{duration:5000})
+    }
+     
+  },[])
+
+
   useEffect(() => {
     if (activeRoomId) {
       socketRef.current = new WebSocket(`ws://localhost:8000/ws/chat/${activeRoomId}/`);
@@ -57,9 +69,6 @@ const ChatComponent = () => {
         .catch((error) => {
           console.error('Error:', error);
         });
-    }else{
-      history('/login')
-      toast.error('Please Login for community chat',{duration:5000})
     }
     return () => {
       if (socketRef.current) {
@@ -75,6 +84,7 @@ const ChatComponent = () => {
       room_id: activeRoomId,
     };
 
+    
     axios
       .post(`rooms/${activeRoomId}/messages/`, message)
       .then((response) => {
