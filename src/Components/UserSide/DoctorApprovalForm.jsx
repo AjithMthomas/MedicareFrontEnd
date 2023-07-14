@@ -62,7 +62,8 @@ import {
           const response = await axios.post("/doctor/createDoctors/", formData);
       
           if (response.status === 201) {
-            toast.success('Doctor request sent successfully,check email');
+            toast.success('Doctor request sent successfully,check email',{duration:5000});
+            history('/')
           } else {
         
             toast.error('Error creating doctor');
